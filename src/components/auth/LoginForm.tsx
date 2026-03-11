@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Button, Input } from "../ui";
 import { useAuthStore } from "../../stores/authStore";
 import { validateLoginForm } from "../../lib/validation";
+import { GoogleButton, FacebookButton } from "./SocialButtons";
 
 export function LoginForm() {
   const { t } = useTranslation();
@@ -44,60 +45,65 @@ export function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {loginError && (
-        <div
-          className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm"
-          role="alert"
-        >
-          {loginError}
-        </div>
-      )}
-      <Input
-        label={t("auth.email")}
-        type="email"
-        value={form.email}
-        onChange={(e) => handleChange("email", e.target.value)}
-        error={errors.email}
-      />
-      <Input
-        label={t("auth.password")}
-        showPasswordToggle
-        value={form.password}
-        onChange={(e) => handleChange("password", e.target.value)}
-        error={errors.password}
-      />
-      <Button type="submit" fullWidth size="lg">
-        {t("auth.login")}
-      </Button>
+    <div className="w-full max-w-[400px]">
+      <h1 className="text-[32px] font-bold text-darkblue-100 mb-8">
+        {t("auth.welcome")}
+      </h1>
 
-      <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-300" />
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-white text-gray-500">or</span>
-        </div>
+      <div className="bg-[#f8f9fa] p-8 rounded-lg">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {loginError && (
+            <div
+              className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm"
+              role="alert"
+            >
+              {loginError}
+            </div>
+          )}
+          <Input
+            placeholder={t("auth.email")}
+            type="email"
+            value={form.email}
+            hideLabel
+            onChange={(e) => handleChange("email", e.target.value)}
+            error={errors.email}
+          />
+          <Input
+            placeholder={t("auth.password")}
+            showPasswordToggle
+            value={form.password}
+            hideLabel
+            onChange={(e) => handleChange("password", e.target.value)}
+            error={errors.password}
+          />
+
+          <div className="pt-2">
+            <Button type="submit" className="px-10">
+              {t("auth.login")}
+            </Button>
+          </div>
+
+          <div className="pt-4">
+            <p className=" text-lg font-bold text-darkblue-100 mb-4">
+              {t("auth.orContinueWith")}
+            </p>
+            <div className="flex gap-4">
+              <GoogleButton />
+              <FacebookButton />
+            </div>
+          </div>
+        </form>
       </div>
 
-      <div className="space-y-3">
-        <Button type="button" fullWidth>
-          {t("auth.signInGoogle")}
-        </Button>
-        <Button type="button" fullWidth>
-          {t("auth.signInFacebook")}
-        </Button>
-      </div>
-
-      <p className="text-center text-sm text-gray-600 mt-4">
+      <p className="text-left text-sm text-gray-500 mt-6 font-medium">
         {t("auth.noAccount")}{" "}
         <Link
           to="/signup"
-          className="text-green-600 hover:text-green-700 font-medium"
+          className="text-darkblue-100 hover:underline font-bold"
         >
           {t("auth.signUp")}
         </Link>
       </p>
-    </form>
+    </div>
   );
 }

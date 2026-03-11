@@ -29,7 +29,11 @@
     "signInFacebook": "Sign in with Facebook",
     "showPassword": "Show password",
     "hidePassword": "Hide password",
-    "loginError": "Invalid email or password"
+    "loginError": "Invalid email or password",
+    "welcome": "Welcome",
+    "orContinueWith": "Or continue with",
+    "stayConnected": "Stay Connected.",
+    "back": "Back"
   },
   "dashboard": {
     "welcome": "Welcome to Climateware",

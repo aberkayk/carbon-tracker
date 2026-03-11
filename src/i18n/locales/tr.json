@@ -29,7 +29,11 @@
     "signInFacebook": "Facebook ile giriş yap",
     "showPassword": "Şifreyi göster",
     "hidePassword": "Şifreyi gizle",
-    "loginError": "Geçersiz e-posta veya şifre"
+    "loginError": "Geçersiz e-posta veya şifre",
+    "welcome": "Hoş Geldiniz",
+    "orContinueWith": "Veya şununla devam et",
+    "stayConnected": "Bağlantıda Kalın.",
+    "back": "Geri"
   },
   "dashboard": {
     "welcome": "Climateware'a Hoş Geldiniz",

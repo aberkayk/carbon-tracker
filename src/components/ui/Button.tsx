@@ -15,19 +15,19 @@ export function Button({
   ...props
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed text-center align-middle font-bold text-[18px] leading-none";
+    "inline-flex items-center justify-center rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed text-center align-middle font-bold text-[18px] leading-none";
 
   const variants: Record<string, string> = {
     primary:
       "bg-pink-100 text-white-100 hover:bg-pink-50 active:bg-pink-150 focus:ring-pink-100",
     outline:
-      "bg-white-100 text-white-100 border border-white-100 hover:bg-white/25 active:bg-white/15 focus:ring-white-100",
+      "bg-transperant text-white-100 border border-white-100 hover:bg-white/25 active:bg-white/15 focus:ring-white-100",
   };
 
   const sizes: Record<string, string> = {
-    sm: "px-3 py-1.5",
-    md: "px-4 py-2",
-    lg: "px-6 py-3",
+    sm: "px-4 py-1.5",
+    md: "px-6 py-3",
+    lg: "px-8 py-3",
   };
 
   return (

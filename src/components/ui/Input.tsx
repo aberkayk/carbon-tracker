@@ -1,6 +1,5 @@
 import { useState, type InputHTMLAttributes } from "react";
-import eyeOn from "../../assets/icons/eye_on.svg";
-import eyeOff from "../../assets/icons/eye_off.svg";
+import { EyeOnIcon, EyeOffIcon } from "../../assets/icons";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -31,7 +30,10 @@ export function Input({
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
       {label && !hideLabel && (
-        <label htmlFor={inputId} className="text-sm font-medium text-gray-700">
+        <label
+          htmlFor={inputId}
+          className="text-sm font-normal text-darkblue-100"
+        >
           {label}
         </label>
       )}
@@ -39,8 +41,8 @@ export function Input({
         <input
           id={inputId}
           type={inputType}
-          className={`w-full px-4 py-3 bg-white border rounded-xl text-sm transition-all outline-none focus:border-darkblue-100 ${
-            error ? "border-red-100" : "border-gray-200"
+          className={`w-full px-4 py-3 bg-white border rounded-xl text-sm transition-all text-darkblue-100 focus-ring placeholder:text-darkblue-50 ${
+            error ? "border-red-100" : "border-white"
           } ${className}`}
           aria-invalid={!!error}
           aria-describedby={error ? `${inputId}-error` : undefined}
@@ -50,13 +52,13 @@ export function Input({
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+            className="absolute bg-transparent right-3 top-1/2 -translate-y-1/2 p-1 transition-all focus-ring text-darkblue-100"
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
             <img
-              src={showPassword ? eyeOff : eyeOn}
-              alt=""
-              className="w-5 h-5 opacity-60"
+              src={showPassword ? EyeOffIcon : EyeOnIcon}
+              alt={showPassword ? "Hide password" : "Show password"}
+              className="w-5 h-5"
             />
           </button>
         )}

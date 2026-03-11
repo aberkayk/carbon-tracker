@@ -11,6 +11,7 @@
   --color-darkblue-100: #2a3349;
   --color-darkblue-50: #798899;
   --color-grey-100: #babbc7;
+  --color-grey-50: #eceeef;
   --color-red-100: #e51e38;
   --color-white-100: #ffffff;
 
@@ -62,5 +63,14 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-grey-100);
+  }
+}
+
+@layer utilities {
+  .focus-ring {
+    @apply outline-none rounded-md focus:ring-1 focus:ring-offset-2 focus:ring-darkblue-100;
+  }
+  .peer-focus-ring {
+    @apply peer-focus:outline-none peer-focus:rounded-md peer-focus:ring-1 peer-focus:ring-offset-2 peer-focus:ring-darkblue-100;
   }
 }

@@ -33,7 +33,9 @@
     "welcome": "Welcome",
     "orContinueWith": "Or continue with",
     "stayConnected": "Stay Connected.",
-    "back": "Back"
+    "back": "Back",
+    "createAccount": "Create Account",
+    "orCreateWith": "Or create account with"
   },
   "dashboard": {
     "welcome": "Welcome to Climateware",

@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '../../stores/authStore';
-import { SUPPORTED_LANGUAGES } from '../../lib/constants';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useAuthStore } from "../../stores/authStore";
+import { SUPPORTED_LANGUAGES } from "../../lib/constants";
+import { ChevronIcon, MenuIcon } from "../../assets/icons";
 
 export function Header() {
   const { t, i18n } = useTranslation();
@@ -13,12 +14,12 @@ export function Header() {
 
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
-    localStorage.setItem('language', lang);
+    localStorage.setItem("language", lang);
   };
 
   return (
@@ -26,7 +27,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link
-            to={isAuthenticated ? '/dashboard' : '/login'}
+            to={isAuthenticated ? "/dashboard" : "/login"}
             className="font-bold text-xl text-green-700"
           >
             Climateware
@@ -40,8 +41,8 @@ export function Header() {
                   onClick={() => changeLanguage(lang)}
                   className={`px-2 py-1 text-sm rounded ${
                     i18n.language === lang
-                      ? 'bg-green-100 text-green-700 font-semibold'
-                      : 'text-gray-500 hover:text-gray-700'
+                      ? "bg-green-100 text-green-700 font-semibold"
+                      : "text-gray-500 hover:text-gray-700"
                   }`}
                 >
                   {lang.toUpperCase()}
@@ -56,7 +57,11 @@ export function Header() {
                   className="flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900"
                 >
                   {user.firstName} {user.lastName}
-                  <span className="text-xs">&#9660;</span>
+                  <img
+                    src={ChevronIcon}
+                    alt=""
+                    className={`w-3 h-3 transition-transform ${menuOpen ? "rotate-180" : ""}`}
+                  />
                 </button>
                 {menuOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-50">
@@ -65,20 +70,20 @@ export function Header() {
                       onClick={() => setMenuOpen(false)}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                     >
-                      {t('common.profile')}
+                      {t("common.profile")}
                     </Link>
                     <Link
                       to="/dashboard"
                       onClick={() => setMenuOpen(false)}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                     >
-                      {t('common.dashboard')}
+                      {t("common.dashboard")}
                     </Link>
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                     >
-                      {t('common.logout')}
+                      {t("common.logout")}
                     </button>
                   </div>
                 )}
@@ -91,7 +96,7 @@ export function Header() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            &#9776;
+            <img src={MenuIcon} alt="" className="w-6 h-6" />
           </button>
         </div>
 
@@ -104,8 +109,8 @@ export function Header() {
                   onClick={() => changeLanguage(lang)}
                   className={`px-3 py-1 text-sm rounded ${
                     i18n.language === lang
-                      ? 'bg-green-100 text-green-700 font-semibold'
-                      : 'text-gray-500'
+                      ? "bg-green-100 text-green-700 font-semibold"
+                      : "text-gray-500"
                   }`}
                 >
                   {lang.toUpperCase()}
@@ -119,20 +124,20 @@ export function Header() {
                   className="block py-2 text-sm text-gray-700"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {t('common.profile')}
+                  {t("common.profile")}
                 </Link>
                 <Link
                   to="/dashboard"
                   className="block py-2 text-sm text-gray-700"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {t('common.dashboard')}
+                  {t("common.dashboard")}
                 </Link>
                 <button
                   onClick={handleLogout}
                   className="block py-2 text-sm text-gray-700"
                 >
-                  {t('common.logout')}
+                  {t("common.logout")}
                 </button>
               </>
             )}

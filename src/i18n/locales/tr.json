@@ -33,7 +33,9 @@
     "welcome": "Hoş Geldiniz",
     "orContinueWith": "Veya şununla devam et",
     "stayConnected": "Bağlantıda Kalın.",
-    "back": "Geri"
+    "back": "Geri",
+    "createAccount": "Hesap Oluştur",
+    "orCreateWith": "Veya hesap oluştur"
   },
   "dashboard": {
     "welcome": "Climateware'a Hoş Geldiniz",

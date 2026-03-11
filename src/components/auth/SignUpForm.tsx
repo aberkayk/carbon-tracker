@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Button, Input } from "../ui";
+import { Button, Input, Checkbox } from "../ui";
 import { useAuthStore } from "../../stores/authStore";
 import { validateSignUpForm } from "../../lib/validation";
+import { GoogleButton, FacebookButton } from "./SocialButtons";
 
 export function SignUpForm() {
   const { t } = useTranslation();
@@ -49,83 +50,88 @@ export function SignUpForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Input
-          label={t("auth.firstName")}
-          value={form.firstName}
-          onChange={(e) => handleChange("firstName", e.target.value)}
-          error={errors.firstName}
-        />
-        <Input
-          label={t("auth.lastName")}
-          value={form.lastName}
-          onChange={(e) => handleChange("lastName", e.target.value)}
-          error={errors.lastName}
-        />
-      </div>
-      <Input
-        label={t("auth.email")}
-        type="email"
-        value={form.email}
-        onChange={(e) => handleChange("email", e.target.value)}
-        error={errors.email}
-      />
-      <Input
-        label={t("auth.password")}
-        showPasswordToggle
-        value={form.password}
-        onChange={(e) => handleChange("password", e.target.value)}
-        error={errors.password}
-      />
-      <div className="flex items-start gap-2">
-        <input
-          type="checkbox"
-          id="terms"
-          checked={form.termsAccepted}
-          onChange={(e) => handleChange("termsAccepted", e.target.checked)}
-          className="mt-1"
-        />
-        <label htmlFor="terms" className="text-sm text-gray-600">
-          {t("auth.termsConfirmation")}
-        </label>
-      </div>
-      {errors.termsAccepted && (
-        <p className="text-xs text-red-500" role="alert">
-          {errors.termsAccepted}
-        </p>
-      )}
-      <Button type="submit" fullWidth size="lg">
-        {t("auth.signUp")}
-      </Button>
+    <div className="w-full max-w-[400px]">
+      <h1 className="text-[32px] font-bold text-darkblue-100 mb-8">
+        {t("auth.createAccount")}
+      </h1>
 
-      <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-300" />
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-white text-gray-500">or</span>
-        </div>
+      <div className="bg-[#f8f9fa] p-8 rounded-lg">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Input
+              placeholder={t("auth.firstName")}
+              value={form.firstName}
+              hideLabel
+              onChange={(e) => handleChange("firstName", e.target.value)}
+              error={errors.firstName}
+            />
+            <Input
+              placeholder={t("auth.lastName")}
+              value={form.lastName}
+              hideLabel
+              onChange={(e) => handleChange("lastName", e.target.value)}
+              error={errors.lastName}
+            />
+          </div>
+          <Input
+            placeholder={t("auth.email")}
+            type="email"
+            value={form.email}
+            hideLabel
+            onChange={(e) => handleChange("email", e.target.value)}
+            error={errors.email}
+          />
+          <Input
+            placeholder={t("auth.password")}
+            showPasswordToggle
+            value={form.password}
+            hideLabel
+            onChange={(e) => handleChange("password", e.target.value)}
+            error={errors.password}
+          />
+
+          <Checkbox
+            id="terms"
+            checked={form.termsAccepted}
+            onChange={(e) => handleChange("termsAccepted", e.target.checked)}
+            error={errors.termsAccepted}
+            label={
+              <p className="text-darkblue-100 leading-tight">
+                I have read the{" "}
+                <span className="font-bold">Terms & Conditions</span> and agree
+                to them. The <span className="font-bold">privacy policy</span>{" "}
+                applies.
+              </p>
+            }
+          />
+
+          <div className="pt-2">
+            <Button type="submit" className="px-10">
+              {t("auth.signUp")}
+            </Button>
+          </div>
+
+          <div className="pt-4">
+            <p className="text-lg font-bold text-darkblue-100 mb-4">
+              {t("auth.orCreateWith")}
+            </p>
+            <div className="flex gap-4">
+              <GoogleButton />
+              <FacebookButton />
+            </div>
+          </div>
+        </form>
       </div>
 
-      <div className="space-y-3">
-        <Button type="button" fullWidth>
-          {t("auth.signInGoogle")}
-        </Button>
-        <Button type="button" fullWidth>
-          {t("auth.signInFacebook")}
-        </Button>
-      </div>
-
-      <p className="text-center text-sm text-gray-600 mt-4">
+      <p className="text-left text-sm text-gray-500 mt-6 font-medium">
         {t("auth.hasAccount")}{" "}
         <Link
           to="/login"
-          className="text-green-600 hover:text-green-700 font-medium"
+          className="text-darkblue-100 hover:underline font-bold"
         >
           {t("auth.login")}
         </Link>
       </p>
-    </form>
+    </div>
   );
 }

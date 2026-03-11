@@ -15,7 +15,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center rounded-md transition-colors focus-ring disabled:opacity-50 disabled:cursor-not-allowed text-center align-middle font-bold text-[18px] leading-none";
+    "inline-flex items-center justify-center rounded-md transition-colors focus-ring disabled:opacity-50 disabled:cursor-not-allowed text-center align-middle font-bold text-[18px] leading-none hover:cursor-pointer";
 
   const variants: Record<string, string> = {
     primary: "bg-pink-100 text-white-100 hover:bg-pink-50 active:bg-pink-150 ",

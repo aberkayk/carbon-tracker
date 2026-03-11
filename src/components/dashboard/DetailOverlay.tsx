@@ -1,59 +1,49 @@
-import { useTranslation } from 'react-i18next';
-import { formatNumber } from '../../lib/calculation';
-import type { TripGroup } from '../../types';
+import { useTranslation } from "react-i18next";
+import { formatNumber } from "../../lib/calculation";
+import type { TripGroup } from "../../types";
 
 interface DetailOverlayProps {
   group: TripGroup;
   onClose: () => void;
+  inline?: boolean;
 }
 
-export function DetailOverlay({ group, onClose }: DetailOverlayProps) {
+export function DetailOverlay({ group, inline }: DetailOverlayProps) {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-2">
-      <div className="flex items-center justify-between mb-3">
-        <h4 className="text-sm font-semibold text-gray-700">
-          {group.name} - Legs
-        </h4>
-        <button
-          onClick={onClose}
-          className="text-gray-400 hover:text-gray-600 text-sm"
-          aria-label={t('common.close')}
+    <div
+      className={
+        inline
+          ? "px-1 pt-3 animate-accordion-down"
+          : "bg-grey-50 rounded-b-xl px-4 pb-4 pt-8 -mt-4 mb-2 animate-accordion-down mx-auto"
+      }
+    >
+      <div className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] gap-4 text-xs text-darkblue-50 pb-2 mb-1">
+        <span>{t("transportation.date")}</span>
+        <span>{t("transportation.from")}</span>
+        <span>{t("transportation.to")}</span>
+        <span>{t("transportation.flightNo")}</span>
+        <span>{t("dashboard.distance")}</span>
+        <span>{t("dashboard.weight")}</span>
+      </div>
+      {group.legs.map((leg) => (
+        <div
+          key={leg.id}
+          className="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] gap-4 py-4"
         >
-          &times;
-        </button>
-      </div>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left text-gray-500 border-b">
-              <th className="pb-2 pr-3">{t('transportation.date')}</th>
-              <th className="pb-2 pr-3">{t('transportation.from')}</th>
-              <th className="pb-2 pr-3">{t('transportation.to')}</th>
-              <th className="pb-2 pr-3">{t('transportation.flightNo')}</th>
-              <th className="pb-2 pr-3">{t('dashboard.distance')}</th>
-              <th className="pb-2">{t('dashboard.weight')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {group.legs.map((leg) => (
-              <tr key={leg.id} className="border-b border-gray-100">
-                <td className="py-2 pr-3">{leg.date}</td>
-                <td className="py-2 pr-3">{leg.from}</td>
-                <td className="py-2 pr-3">{leg.to}</td>
-                <td className="py-2 pr-3">{leg.flightNo}</td>
-                <td className="py-2 pr-3">
-                  {formatNumber(leg.distanceKm, 2)} {t('units.km')}
-                </td>
-                <td className="py-2">
-                  {formatNumber(leg.weightKg, 2)} {t('units.kg')}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          <span className="text-sm text-darkblue-100">{leg.date}</span>
+          <span className="text-sm text-darkblue-100">{leg.from}</span>
+          <span className="text-sm text-darkblue-100">{leg.to}</span>
+          <span className="text-sm text-darkblue-100">{leg.flightNo}</span>
+          <span className="text-sm text-darkblue-100">
+            {formatNumber(leg.distanceKm, 0)} {t("units.km")}
+          </span>
+          <span className="text-sm text-darkblue-100">
+            {formatNumber(leg.weightKg, 0)} {t("units.kg")}
+          </span>
+        </div>
+      ))}
     </div>
   );
 }

@@ -3,7 +3,12 @@ import { useTranslation } from "react-i18next";
 import { Button, Pagination } from "../ui";
 import { DetailOverlay } from "./DetailOverlay";
 import { formatNumber } from "../../lib/calculation";
-import { DownloadIcon, DetailIcon, ChevronIcon } from "../../assets/icons";
+import {
+  DownloadIcon,
+  DetailIcon,
+  ChevronIcon,
+  InvoiceIcon,
+} from "../../assets/icons";
 import type { TripGroup } from "../../types";
 
 interface HistoryTableProps {
@@ -50,7 +55,7 @@ export function HistoryTable({
 
       {/* Desktop table */}
       <div className="hidden lg:block">
-        <div className="border-b border-grey-50 pb-2 mb-1">
+        <div className="border-b border-grey-50 pb-2 mb-4">
           <div className="grid grid-cols-[2rem_1fr_10rem_10rem_8rem_6rem] gap-4 text-sm text-darkblue-50 font-medium px-2">
             <span />
             <span>{t("dashboard.name")}</span>
@@ -62,19 +67,29 @@ export function HistoryTable({
         </div>
 
         {paginatedGroups.map((group) => (
-          <div key={group.id} className="border-b border-grey-50 last:border-0">
-            <div className="grid grid-cols-[2rem_1fr_10rem_10rem_8rem_6rem] gap-4 items-center py-3 px-2">
+          <div
+            key={group.id}
+            className={`border-grey-50 last:border-0 transition-shadow duration-300 `}
+          >
+            <div
+              role="button"
+              onClick={() => toggleOverlay(group.id)}
+              className={`grid grid-cols-[2rem_1fr_10rem_10rem_8rem_6rem] gap-4 items-center py-3 px-2 cursor-pointer transition-all duration-300 ${
+                expandedGroupId === group.id
+                  ? "shadow-md rounded-xl bg-white relative z-10"
+                  : ""
+              }`}
+            >
               {/* Chevron */}
               <button
-                onClick={() => toggleOverlay(group.id)}
-                className="flex items-center justify-center w-6 h-6 text-darkblue-50 hover:text-darkblue-100 transition-colors"
+                className="flex items-center justify-center w-6 h-6 text-darkblue-50 hover:text-darkblue-100 transition-colors hover:cursor-pointer"
                 aria-label="Toggle details"
                 aria-expanded={expandedGroupId === group.id}
               >
                 <img
                   src={ChevronIcon}
                   alt=""
-                  className={`w-4 h-4 transition-transform ${
+                  className={`size-8 transition-transform ${
                     expandedGroupId === group.id ? "rotate-180" : ""
                   }`}
                 />
@@ -101,31 +116,37 @@ export function HistoryTable({
               </span>
 
               {/* Actions */}
-              <div className="flex gap-2">
+              <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
                 <button
                   onClick={() => onDownload(group)}
                   className="p-1.5 text-darkblue-50 hover:text-darkblue-100 transition-colors"
                   aria-label={t("common.download")}
                 >
-                  <img src={DownloadIcon} alt="" className="w-5 h-5" />
+                  <img
+                    src={DownloadIcon}
+                    alt=""
+                    className="size-8 hover:cursor-pointer hover:bg-grey-50 rounded-full"
+                  />
                 </button>
                 <button
                   onClick={() => onDetails(group)}
                   className="p-1.5 text-darkblue-50 hover:text-darkblue-100 transition-colors"
                   aria-label={t("common.details")}
                 >
-                  <img src={DetailIcon} alt="" className="w-5 h-5" />
+                  <img
+                    src={InvoiceIcon}
+                    alt=""
+                    className="size-8 hover:cursor-pointer hover:bg-grey-50 rounded-full"
+                  />
                 </button>
               </div>
             </div>
 
             {expandedGroupId === group.id && (
-              <div className="px-2 pb-3">
-                <DetailOverlay
-                  group={group}
-                  onClose={() => setExpandedGroupId(null)}
-                />
-              </div>
+              <DetailOverlay
+                group={group}
+                onClose={() => setExpandedGroupId(null)}
+              />
             )}
           </div>
         ))}
@@ -151,7 +172,7 @@ export function HistoryTable({
                 <img
                   src={ChevronIcon}
                   alt=""
-                  className={`w-4 h-4 transition-transform ${
+                  className={`size-8 hover:bg-grey-50 transition-transform ${
                     expandedGroupId === group.id ? "rotate-180" : ""
                   }`}
                 />
@@ -203,12 +224,11 @@ export function HistoryTable({
             </div>
 
             {expandedGroupId === group.id && (
-              <div className="mt-3">
-                <DetailOverlay
-                  group={group}
-                  onClose={() => setExpandedGroupId(null)}
-                />
-              </div>
+              <DetailOverlay
+                group={group}
+                onClose={() => setExpandedGroupId(null)}
+                inline
+              />
             )}
           </div>
         ))}
@@ -286,12 +306,11 @@ export function HistoryTable({
             </div>
 
             {expandedGroupId === group.id && (
-              <div className="mt-3">
-                <DetailOverlay
-                  group={group}
-                  onClose={() => setExpandedGroupId(null)}
-                />
-              </div>
+              <DetailOverlay
+                group={group}
+                onClose={() => setExpandedGroupId(null)}
+                inline
+              />
             )}
           </div>
         ))}

@@ -66,7 +66,22 @@
   }
 }
 
+@keyframes accordion-down {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @layer utilities {
+  .animate-accordion-down {
+    animation: accordion-down 300ms ease-out forwards;
+  }
+}
   .focus-ring {
     @apply outline-none rounded-md focus:ring-1 focus:ring-offset-2 focus:ring-darkblue-100;
   }

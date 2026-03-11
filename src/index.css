@@ -1,1 +1,62 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Rubik:wght@300;400;500;600;700&display=swap");
+
+@theme {
+  /* Colors */
+  --color-pink-50: #f14794;
+  --color-pink-100: #ed1979;
+  --color-pink-150: #c20f60;
+  --color-green-100: #197a4e;
+  --color-green-10: #f1f7f2;
+  --color-darkblue-100: #2a3349;
+  --color-darkblue-50: #798899;
+  --color-grey-100: #babbc7;
+  --color-red-100: #e51e38;
+  --color-white-100: #ffffff;
+
+  /* Fonts */
+  --font-sans: "Rubik", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-white-100);
+    color: var(--color-darkblue-100);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-white-100);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-grey-100);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-grey-100);
+  }
+}

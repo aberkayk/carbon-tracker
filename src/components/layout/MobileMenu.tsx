@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { CrossIcon } from "../../assets/icons";
-import { NAV_LINKS } from "../../lib/constants";
-import { useDeviceType } from "../../hooks/useDeviceType";
+import { NavLinks } from "./NavLinks";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -12,12 +11,11 @@ interface MobileMenuProps {
 
 export function MobileMenu({ isOpen, onClose, onLogout }: MobileMenuProps) {
   const { t } = useTranslation();
-  const deviceType = useDeviceType();
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-white animate-in slide-in-from-left duration-300">
+    <div className="fixed inset-0 z-50 animate-in slide-in-from-left duration-300">
       <div className="p-8 h-full flex flex-col">
         <button
           onClick={onClose}
@@ -26,21 +24,9 @@ export function MobileMenu({ isOpen, onClose, onLogout }: MobileMenuProps) {
           <img src={CrossIcon} alt="Close" className="size-8" />
         </button>
 
-        <ul className="flex flex-col gap-6 mb-12">
-          {NAV_LINKS.map((link) => (
-            <li
-              key={link.name}
-              onClick={onClose}
-              className={`text-3xl font-bold transition-all uppercase ${
-                deviceType === link.name
-                  ? "text-green-100"
-                  : "text-darkblue-100"
-              }`}
-            >
-              {t(link.labelKey)}
-            </li>
-          ))}
-        </ul>
+        <div className="mb-12">
+          <NavLinks variant="mobile" onItemClick={onClose} />
+        </div>
 
         <div className="h-px bg-gray-100 mb-10" />
 

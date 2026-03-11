@@ -3,21 +3,17 @@ import { Link } from "react-router-dom";
 import { useAuthStore } from "../../stores/authStore";
 import { MenuIcon, UserCircleIcon } from "../../assets/icons";
 import logo from "../../assets/images/logo.png";
-import { NAV_LINKS } from "../../lib/constants";
+import { NavLinks } from "./NavLinks";
 import { MobileMenu } from "./MobileMenu";
 import { LanguageDropdown } from "./LanguageDropdown";
 import { ProfileDropdown } from "./ProfileDropdown";
-import { useDeviceType } from "../../hooks/useDeviceType";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 type DropdownKey = "lang" | "profile";
 
 export function Header() {
   const { isAuthenticated, logout } = useAuthStore();
   const navigate = useNavigate();
-  const { i18n, t } = useTranslation();
-  const deviceType = useDeviceType();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<DropdownKey | null>(null);
 
@@ -37,7 +33,7 @@ export function Header() {
   };
 
   return (
-    <header className="border-b border-gray-100 sticky top-0 z-40 bg-white">
+    <header className="border-gray-100 sticky top-0 z-40">
       <div className="mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Left: Logo & Nav */}
@@ -56,24 +52,12 @@ export function Header() {
               <img src={logo} alt="Climateware" className="h-9 w-auto" />
             </Link>
 
-            {/* Vertical Separator - Desktop Only */}
             <div className="hidden md:block h-8 w-px bg-gray-200" />
 
             {/* Desktop Nav */}
-            <ul className="hidden md:flex items-center gap-6">
-              {NAV_LINKS.map((link) => (
-                <li
-                  key={link.name}
-                  className={`text-sm font-bold tracking-widest transition-all duration-300 uppercase ${
-                    deviceType === link.name
-                      ? "text-green-100"
-                      : "text-darkblue-100 hover:text-green-100/80"
-                  }`}
-                >
-                  {t(link.labelKey)}
-                </li>
-              ))}
-            </ul>
+            <div className="hidden md:flex">
+              <NavLinks />
+            </div>
           </div>
 
           {/* Right: Lang & User */}

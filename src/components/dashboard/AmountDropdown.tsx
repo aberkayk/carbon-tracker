@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import type { EquivalentImpact } from '../../types';
-import { formatNumber } from '../../lib/calculation';
+import { useTranslation } from "react-i18next";
+import type { EquivalentImpact } from "../../types";
+import { formatNumber } from "../../lib/calculation";
+import { CarsIcon, IceIcon, LightbulbIcon, BeefIcon } from "../../assets/icons";
 
 interface AmountDropdownProps {
   equivalents: EquivalentImpact;
@@ -9,58 +9,51 @@ interface AmountDropdownProps {
 
 export function AmountDropdown({ equivalents }: AmountDropdownProps) {
   const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
 
   const items = [
     {
-      label: t('dashboard.equivalents.kmDriven'),
+      icon: CarsIcon,
       value: formatNumber(equivalents.equivalentKmDriven, 0),
-      unit: t('units.km'),
+      unit: t("units.km"),
+      label: t("dashboard.equivalents.kmDriven"),
     },
     {
-      label: t('dashboard.equivalents.seaIceMelt'),
+      icon: IceIcon,
       value: formatNumber(equivalents.equivalentSeaIceM3, 2),
-      unit: t('units.m3'),
+      unit: t("units.m3"),
+      label: t("dashboard.equivalents.seaIceMelt"),
     },
     {
-      label: t('dashboard.equivalents.lightbulbUsage'),
+      icon: LightbulbIcon,
       value: formatNumber(equivalents.equivalentLightbulbDays, 0),
-      unit: t('units.days'),
+      unit: t("units.days"),
+      label: t("dashboard.equivalents.lightbulbUsage"),
     },
     {
-      label: t('dashboard.equivalents.beefConsumption'),
+      icon: BeefIcon,
       value: formatNumber(equivalents.equivalentBeefKg, 2),
-      unit: t('units.kg'),
+      unit: t("units.kg"),
+      label: t("dashboard.equivalents.beefConsumption"),
     },
   ];
 
   return (
-    <div>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="text-xs text-green-600 hover:text-green-700 flex items-center gap-1"
-        aria-expanded={isOpen}
-      >
-        {t('dashboard.equivalents.title')}
-        <span className={`transition-transform ${isOpen ? 'rotate-180' : ''}`}>
-          &#9660;
-        </span>
-      </button>
-      {isOpen && (
-        <div className="mt-2 space-y-1.5 bg-green-50 rounded-lg p-3">
-          {items.map((item) => (
-            <div
-              key={item.label}
-              className="flex justify-between text-xs text-gray-700"
-            >
-              <span>{item.label}</span>
-              <span className="font-medium">
-                {item.value} {item.unit}
-              </span>
-            </div>
-          ))}
+    <div className="bg-grey-50 rounded-xl p-4 flex flex-col gap-2 -mt-4 pt-6 md:mt-0 md:pt-26">
+      <p className="text-base font-medium text-darkblue-50 mb-1">
+        {t("dashboard.equivalents.title")}
+      </p>
+      {items.map((item) => (
+        <div key={item.label} className="flex items-center gap-3">
+          <img
+            src={item.icon}
+            alt={item.label}
+            className="size-12 shrink-0 hidden md:block"
+          />
+          <span className="text-sm text-darkblue-50">
+            {item.value} {item.unit} {item.label}
+          </span>
         </div>
-      )}
+      ))}
     </div>
   );
 }

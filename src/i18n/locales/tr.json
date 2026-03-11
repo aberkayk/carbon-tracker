@@ -49,7 +49,7 @@
     "termsAndPrivacy": "<1>{{terms}}</1>'nı okudum ve kabul ediyorum. <3>{{privacy}}</3> geçerlidir."
   },
   "dashboard": {
-    "welcome": "Climateware'a Hoş Geldiniz",
+    "welcome": "Hoş Geldin",
     "description": "Hava yolculuğundan kaynaklanan karbon emisyonlarınızı takip edin ve dengeleyin",
     "shareStatistics": "İstatistikleri Paylaş",
     "amount": "Miktar",
@@ -57,10 +57,14 @@
     "totalTransportation": "Toplam Ulaşım",
     "payment": "Ödeme",
     "history": "Geçmiş",
-    "addTransportation": "Ulaşım Verisi Ekle",
+    "table": "Tablo",
+    "hideStats": "İstatistikleri Gizle",
+    "showStats": "İstatistikleri Göster",
+    "addTransportation": "Ekle",
     "noData": "Henüz ulaşım verisi yok. İlk seyahatinizi ekleyin!",
     "name": "İsim",
     "weight": "Ağırlık",
+    "activity": "Aktivite",
     "equivalents": {
       "title": "Eşdeğer Etki",
       "kmDriven": "araç kullanımı",

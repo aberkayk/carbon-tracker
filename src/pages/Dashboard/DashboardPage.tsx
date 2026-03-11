@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { SummaryCards, HistoryTable } from "../../components/dashboard";
 import {
-  SummaryCards,
-  HistoryTable,
-  DetailOverlay,
-} from "../../components/dashboard";
-import { Button } from "../../components/ui";
+  AddTransportationModal,
+  EditTransportationModal,
+} from "../../components/transportation";
 import { useTransportStore } from "../../stores/transportStore";
 import { useAuthStore } from "../../stores/authStore";
 import { exportGroupToJson } from "../../lib/export";
+import { ShareIcon } from "../../assets/icons";
 import type { TripGroup } from "../../types";
 
 export default function DashboardPage() {
@@ -31,19 +31,18 @@ export default function DashboardPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">
-            {t("dashboard.welcome")}, {user?.firstName}
-          </h1>
-          <p className="text-gray-500">{t("dashboard.description")}</p>
-        </div>
-        <div className="flex gap-3">
-          <Button variant="outline">{t("dashboard.shareStatistics")}</Button>
-          <Button onClick={() => setIsAddModalOpen(true)}>
-            {t("dashboard.addTransportation")}
-          </Button>
-        </div>
+      {/* Welcome section */}
+      <div className="mb-8 flex flex-col gap-2 md:gap-4 lg:gap-6">
+        <h1 className="text-5xl font-bold font-display text-darkblue-100">
+          {t("dashboard.welcome")} {user?.firstName},
+        </h1>
+        <p className="text-darkblue-50 mt-2 max-w-2xl">
+          {t("dashboard.description")}
+        </p>
+        <button className="flex items-center gap-2 mt-3 text-darkblue-100 text-base font-medium hover:opacity-70 transition-opacity">
+          <img src={ShareIcon} alt="" className="size-8" />
+          {t("dashboard.shareStatistics")}
+        </button>
       </div>
 
       <div className="space-y-8">
@@ -52,22 +51,24 @@ export default function DashboardPage() {
         </section>
 
         <section>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">
-              {t("dashboard.history")}
-            </h2>
-          </div>
           <HistoryTable
             groups={groups}
             onDetails={handleDetails}
             onDownload={handleDownload}
+            onAdd={() => setIsAddModalOpen(true)}
           />
         </section>
       </div>
 
-      {/* Modals will be added here */}
-      {/* {isAddModalOpen && <AddTransportationModal onClose={() => setIsAddModalOpen(false)} />} */}
-      {/* {selectedEditGroup && <EditTransportationModal group={selectedEditGroup} onClose={() => setSelectedEditGroup(null)} />} */}
+      <AddTransportationModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+      />
+      <EditTransportationModal
+        isOpen={!!selectedEditGroup}
+        onClose={() => setSelectedEditGroup(null)}
+        group={selectedEditGroup}
+      />
     </div>
   );
 }

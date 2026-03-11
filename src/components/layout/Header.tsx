@@ -1,7 +1,7 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../../stores/authStore";
-import { MenuIcon, UserCircleIcon } from "../../assets/icons";
+import { MenuIcon } from "../../assets/icons";
 import logo from "../../assets/images/logo.png";
 import { NavLinks } from "./NavLinks";
 import { MobileMenu } from "./MobileMenu";
@@ -16,6 +16,13 @@ export function Header() {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<DropdownKey | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Toggle: clicking the same key again closes it; clicking a new key opens it.
   const handleToggle = useCallback((key: DropdownKey) => {
@@ -33,7 +40,9 @@ export function Header() {
   };
 
   return (
-    <header className="border-gray-100 sticky top-0 z-40">
+    <header
+      className={`sticky top-0 z-40 transition-all duration-300 ${scrolled ? "bg-white/20 backdrop-blur-sm" : ""}`}
+    >
       <div className="mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Left: Logo & Nav */}

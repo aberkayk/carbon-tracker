@@ -81,5 +81,14 @@ export function formatCurrency(amount: number, currency: string): string {
 }
 
 export function formatNumber(value: number, decimals: number): string {
-  return value.toFixed(decimals);
+  return new Intl.NumberFormat(undefined, {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(value);
+}
+
+export function splitCurrencyValue(formatted: string): [string, string] {
+  const match = formatted.match(/^(.+)(\.\d{2})$/);
+  if (match) return [match[1], match[2]];
+  return [formatted, ""];
 }

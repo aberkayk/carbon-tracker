@@ -49,7 +49,7 @@
     "termsAndPrivacy": "I have read the <1>{{terms}}</1> and agree to them. The <3>{{privacy}}</3> applies."
   },
   "dashboard": {
-    "welcome": "Welcome to Climateware",
+    "welcome": "Welcome",
     "description": "Track and offset your carbon emissions from air travel",
     "shareStatistics": "Share Statistics",
     "amount": "Amount",
@@ -57,13 +57,17 @@
     "totalTransportation": "Total Transportation",
     "payment": "Payment",
     "history": "History",
-    "addTransportation": "Add Transportation Data",
+    "table": "Table",
+    "hideStats": "Hide Stats",
+    "showStats": "Show Stats",
+    "addTransportation": "Add",
     "noData": "No transportation data yet. Add your first trip!",
     "name": "Name",
     "weight": "Weight",
+    "activity": "Activity",
     "equivalents": {
       "title": "Equivalent Impact",
-      "kmDriven": "km driven",
+      "kmDriven": "driven",
       "seaIceMelt": "sea ice melt",
       "lightbulbUsage": "lightbulb usage",
       "beefConsumption": "beef consumption"

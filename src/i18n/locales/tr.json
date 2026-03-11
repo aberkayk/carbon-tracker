@@ -13,7 +13,16 @@
     "dashboard": "Panel",
     "loading": "Yükleniyor...",
     "prev": "Önceki",
-    "next": "Sonraki"
+    "next": "Sonraki",
+    "nav": {
+      "web": "Web",
+      "tablet": "Tablet",
+      "mobile": "Mobil"
+    },
+    "languages": {
+      "en": "İngilizce",
+      "tr": "Türkçe"
+    }
   },
   "auth": {
     "login": "Giriş Yap",

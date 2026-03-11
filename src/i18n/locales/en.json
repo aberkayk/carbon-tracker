@@ -13,7 +13,16 @@
     "dashboard": "Dashboard",
     "loading": "Loading...",
     "prev": "Prev",
-    "next": "Next"
+    "next": "Next",
+    "nav": {
+      "web": "WEB",
+      "tablet": "TABLET",
+      "mobile": "MOBILE"
+    },
+    "languages": {
+      "en": "English",
+      "tr": "Turkish"
+    }
   },
   "auth": {
     "login": "Login",

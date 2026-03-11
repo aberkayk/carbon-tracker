@@ -28,7 +28,7 @@
   body {
     background-image: url("./assets/images/background.png");
     background-size: cover;
-    background-position: center;
+    background-position: top center;
     background-attachment: fixed;
     background-repeat: no-repeat;
     color: var(--color-darkblue-100);

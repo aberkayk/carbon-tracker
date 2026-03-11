@@ -1,149 +1,106 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useCallback, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuthStore } from "../../stores/authStore";
-import { SUPPORTED_LANGUAGES } from "../../lib/constants";
-import { ChevronIcon, MenuIcon } from "../../assets/icons";
+import { MenuIcon, UserCircleIcon } from "../../assets/icons";
+import logo from "../../assets/images/logo.png";
+import { NAV_LINKS } from "../../lib/constants";
+import { MobileMenu } from "./MobileMenu";
+import { LanguageDropdown } from "./LanguageDropdown";
+import { ProfileDropdown } from "./ProfileDropdown";
+import { useDeviceType } from "../../hooks/useDeviceType";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
+type DropdownKey = "lang" | "profile";
 
 export function Header() {
-  const { t, i18n } = useTranslation();
-  const { user, isAuthenticated, logout } = useAuthStore();
+  const { isAuthenticated, logout } = useAuthStore();
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { i18n, t } = useTranslation();
+  const deviceType = useDeviceType();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<DropdownKey | null>(null);
+
+  // Toggle: clicking the same key again closes it; clicking a new key opens it.
+  const handleToggle = useCallback((key: DropdownKey) => {
+    setOpenDropdown((prev) => (prev === key ? null : key));
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setOpenDropdown(null);
+  }, []);
 
   const handleLogout = () => {
     logout();
+    setMobileMenuOpen(false);
     navigate("/login");
   };
 
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang);
-    localStorage.setItem("language", lang);
-  };
-
   return (
-    <header className="bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link
-            to={isAuthenticated ? "/dashboard" : "/login"}
-            className="font-bold text-xl text-green-700"
-          >
-            Climateware
-          </Link>
+    <header className="border-b border-gray-100 sticky top-0 z-40 bg-white">
+      <div className="mx-auto px-4 md:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          {/* Left: Logo & Nav */}
+          <div className="flex items-center gap-6">
+            <button
+              className="md:hidden p-2 -ml-2 text-darkblue-100 hover:opacity-70 transition-opacity"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <img src={MenuIcon} alt="Menu" className="size-8" />
+            </button>
 
-          <div className="hidden md:flex items-center gap-4">
-            <div className="flex gap-1">
-              {SUPPORTED_LANGUAGES.map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => changeLanguage(lang)}
-                  className={`px-2 py-1 text-sm rounded ${
-                    i18n.language === lang
-                      ? "bg-green-100 text-green-700 font-semibold"
-                      : "text-gray-500 hover:text-gray-700"
+            <Link
+              to={isAuthenticated ? "/dashboard" : "/login"}
+              className="shrink-0 transition-transform active:scale-95"
+            >
+              <img src={logo} alt="Climateware" className="h-9 w-auto" />
+            </Link>
+
+            {/* Vertical Separator - Desktop Only */}
+            <div className="hidden md:block h-8 w-px bg-gray-200" />
+
+            {/* Desktop Nav */}
+            <ul className="hidden md:flex items-center gap-6">
+              {NAV_LINKS.map((link) => (
+                <li
+                  key={link.name}
+                  className={`text-sm font-bold tracking-widest transition-all duration-300 uppercase ${
+                    deviceType === link.name
+                      ? "text-green-100"
+                      : "text-darkblue-100 hover:text-green-100/80"
                   }`}
                 >
-                  {lang.toUpperCase()}
-                </button>
+                  {t(link.labelKey)}
+                </li>
               ))}
-            </div>
-
-            {isAuthenticated && user && (
-              <div className="relative">
-                <button
-                  onClick={() => setMenuOpen(!menuOpen)}
-                  className="flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900"
-                >
-                  {user.firstName} {user.lastName}
-                  <img
-                    src={ChevronIcon}
-                    alt=""
-                    className={`w-3 h-3 transition-transform ${menuOpen ? "rotate-180" : ""}`}
-                  />
-                </button>
-                {menuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-50">
-                    <Link
-                      to="/profile"
-                      onClick={() => setMenuOpen(false)}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      {t("common.profile")}
-                    </Link>
-                    <Link
-                      to="/dashboard"
-                      onClick={() => setMenuOpen(false)}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      {t("common.dashboard")}
-                    </Link>
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                    >
-                      {t("common.logout")}
-                    </button>
-                  </div>
-                )}
-              </div>
-            )}
+            </ul>
           </div>
 
-          <button
-            className="md:hidden p-2 text-gray-600"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <img src={MenuIcon} alt="" className="w-6 h-6" />
-          </button>
+          {/* Right: Lang & User */}
+          <div className="flex items-center gap-6">
+            <LanguageDropdown
+              open={openDropdown === "lang"}
+              onToggle={() => handleToggle("lang")}
+              onClose={handleClose}
+            />
+
+            <div className="h-6 w-px bg-gray-200 hidden md:block" />
+
+            <ProfileDropdown
+              open={openDropdown === "profile"}
+              onToggle={() => handleToggle("profile")}
+              onClose={handleClose}
+            />
+          </div>
         </div>
-
-        {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t">
-            <div className="flex gap-2 mb-4">
-              {SUPPORTED_LANGUAGES.map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => changeLanguage(lang)}
-                  className={`px-3 py-1 text-sm rounded ${
-                    i18n.language === lang
-                      ? "bg-green-100 text-green-700 font-semibold"
-                      : "text-gray-500"
-                  }`}
-                >
-                  {lang.toUpperCase()}
-                </button>
-              ))}
-            </div>
-            {isAuthenticated && (
-              <>
-                <Link
-                  to="/profile"
-                  className="block py-2 text-sm text-gray-700"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {t("common.profile")}
-                </Link>
-                <Link
-                  to="/dashboard"
-                  className="block py-2 text-sm text-gray-700"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {t("common.dashboard")}
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="block py-2 text-sm text-gray-700"
-                >
-                  {t("common.logout")}
-                </button>
-              </>
-            )}
-          </div>
-        )}
       </div>
+
+      {/* Mobile Drawer Menu */}
+      <MobileMenu
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        onLogout={handleLogout}
+      />
     </header>
   );
 }

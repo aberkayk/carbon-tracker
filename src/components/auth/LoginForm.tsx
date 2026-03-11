@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Button, Input } from '../ui';
-import { useAuthStore } from '../../stores/authStore';
-import { validateLoginForm } from '../../lib/validation';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Button, Input } from "../ui";
+import { useAuthStore } from "../../stores/authStore";
+import { validateLoginForm } from "../../lib/validation";
 
 export function LoginForm() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const login = useAuthStore((s) => s.login);
 
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [loginError, setLoginError] = useState('');
+  const [loginError, setLoginError] = useState("");
 
   const handleChange = (field: string, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -21,7 +21,7 @@ export function LoginForm() {
       delete next[field];
       return next;
     });
-    setLoginError('');
+    setLoginError("");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -30,42 +30,45 @@ export function LoginForm() {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(
         Object.fromEntries(
-          Object.entries(validationErrors).map(([k, v]) => [k, t(v)])
-        )
+          Object.entries(validationErrors).map(([k, v]) => [k, t(v)]),
+        ),
       );
       return;
     }
     const success = login(form.email, form.password);
     if (success) {
-      navigate('/dashboard');
+      navigate("/dashboard");
     } else {
-      setLoginError(t('auth.loginError'));
+      setLoginError(t("auth.loginError"));
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {loginError && (
-        <div className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm" role="alert">
+        <div
+          className="bg-red-50 text-red-700 px-4 py-3 rounded-lg text-sm"
+          role="alert"
+        >
           {loginError}
         </div>
       )}
       <Input
-        label={t('auth.email')}
+        label={t("auth.email")}
         type="email"
         value={form.email}
-        onChange={(e) => handleChange('email', e.target.value)}
+        onChange={(e) => handleChange("email", e.target.value)}
         error={errors.email}
       />
       <Input
-        label={t('auth.password')}
+        label={t("auth.password")}
         showPasswordToggle
         value={form.password}
-        onChange={(e) => handleChange('password', e.target.value)}
+        onChange={(e) => handleChange("password", e.target.value)}
         error={errors.password}
       />
       <Button type="submit" fullWidth size="lg">
-        {t('auth.login')}
+        {t("auth.login")}
       </Button>
 
       <div className="relative my-6">
@@ -78,18 +81,21 @@ export function LoginForm() {
       </div>
 
       <div className="space-y-3">
-        <Button type="button" variant="social" fullWidth>
-          {t('auth.signInGoogle')}
+        <Button type="button" fullWidth>
+          {t("auth.signInGoogle")}
         </Button>
-        <Button type="button" variant="social" fullWidth>
-          {t('auth.signInFacebook')}
+        <Button type="button" fullWidth>
+          {t("auth.signInFacebook")}
         </Button>
       </div>
 
       <p className="text-center text-sm text-gray-600 mt-4">
-        {t('auth.noAccount')}{' '}
-        <Link to="/signup" className="text-green-600 hover:text-green-700 font-medium">
-          {t('auth.signUp')}
+        {t("auth.noAccount")}{" "}
+        <Link
+          to="/signup"
+          className="text-green-600 hover:text-green-700 font-medium"
+        >
+          {t("auth.signUp")}
         </Link>
       </p>
     </form>

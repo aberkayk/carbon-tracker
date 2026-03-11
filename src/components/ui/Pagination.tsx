@@ -1,5 +1,5 @@
-import { useTranslation } from 'react-i18next';
-import { Button } from './Button';
+import { useTranslation } from "react-i18next";
+import { Button } from "./Button";
 
 interface PaginationProps {
   currentPage: number;
@@ -19,23 +19,21 @@ export function Pagination({
   return (
     <div className="flex items-center justify-center gap-4 py-4">
       <Button
-        variant="outline"
         size="sm"
         disabled={currentPage === 1}
         onClick={() => onPageChange(currentPage - 1)}
       >
-        {t('common.prev')}
+        {t("common.prev")}
       </Button>
       <span className="text-sm text-gray-600">
         {currentPage} / {totalPages}
       </span>
       <Button
-        variant="outline"
         size="sm"
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
       >
-        {t('common.next')}
+        {t("common.next")}
       </Button>
     </div>
   );

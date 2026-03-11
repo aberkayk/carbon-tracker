@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Button, Input } from '../ui';
-import { useAuthStore } from '../../stores/authStore';
-import { validateSignUpForm } from '../../lib/validation';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Button, Input } from "../ui";
+import { useAuthStore } from "../../stores/authStore";
+import { validateSignUpForm } from "../../lib/validation";
 
 export function SignUpForm() {
   const { t } = useTranslation();
@@ -11,10 +11,10 @@ export function SignUpForm() {
   const signUp = useAuthStore((s) => s.signUp);
 
   const [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
     termsAccepted: false,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -34,8 +34,8 @@ export function SignUpForm() {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(
         Object.fromEntries(
-          Object.entries(validationErrors).map(([k, v]) => [k, t(v)])
-        )
+          Object.entries(validationErrors).map(([k, v]) => [k, t(v)]),
+        ),
       );
       return;
     }
@@ -45,37 +45,37 @@ export function SignUpForm() {
       email: form.email,
       password: form.password,
     });
-    navigate('/dashboard');
+    navigate("/dashboard");
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Input
-          label={t('auth.firstName')}
+          label={t("auth.firstName")}
           value={form.firstName}
-          onChange={(e) => handleChange('firstName', e.target.value)}
+          onChange={(e) => handleChange("firstName", e.target.value)}
           error={errors.firstName}
         />
         <Input
-          label={t('auth.lastName')}
+          label={t("auth.lastName")}
           value={form.lastName}
-          onChange={(e) => handleChange('lastName', e.target.value)}
+          onChange={(e) => handleChange("lastName", e.target.value)}
           error={errors.lastName}
         />
       </div>
       <Input
-        label={t('auth.email')}
+        label={t("auth.email")}
         type="email"
         value={form.email}
-        onChange={(e) => handleChange('email', e.target.value)}
+        onChange={(e) => handleChange("email", e.target.value)}
         error={errors.email}
       />
       <Input
-        label={t('auth.password')}
+        label={t("auth.password")}
         showPasswordToggle
         value={form.password}
-        onChange={(e) => handleChange('password', e.target.value)}
+        onChange={(e) => handleChange("password", e.target.value)}
         error={errors.password}
       />
       <div className="flex items-start gap-2">
@@ -83,11 +83,11 @@ export function SignUpForm() {
           type="checkbox"
           id="terms"
           checked={form.termsAccepted}
-          onChange={(e) => handleChange('termsAccepted', e.target.checked)}
+          onChange={(e) => handleChange("termsAccepted", e.target.checked)}
           className="mt-1"
         />
         <label htmlFor="terms" className="text-sm text-gray-600">
-          {t('auth.termsConfirmation')}
+          {t("auth.termsConfirmation")}
         </label>
       </div>
       {errors.termsAccepted && (
@@ -96,7 +96,7 @@ export function SignUpForm() {
         </p>
       )}
       <Button type="submit" fullWidth size="lg">
-        {t('auth.signUp')}
+        {t("auth.signUp")}
       </Button>
 
       <div className="relative my-6">
@@ -109,18 +109,21 @@ export function SignUpForm() {
       </div>
 
       <div className="space-y-3">
-        <Button type="button" variant="social" fullWidth>
-          {t('auth.signInGoogle')}
+        <Button type="button" fullWidth>
+          {t("auth.signInGoogle")}
         </Button>
-        <Button type="button" variant="social" fullWidth>
-          {t('auth.signInFacebook')}
+        <Button type="button" fullWidth>
+          {t("auth.signInFacebook")}
         </Button>
       </div>
 
       <p className="text-center text-sm text-gray-600 mt-4">
-        {t('auth.hasAccount')}{' '}
-        <Link to="/login" className="text-green-600 hover:text-green-700 font-medium">
-          {t('auth.login')}
+        {t("auth.hasAccount")}{" "}
+        <Link
+          to="/login"
+          className="text-green-600 hover:text-green-700 font-medium"
+        >
+          {t("auth.login")}
         </Link>
       </p>
     </form>

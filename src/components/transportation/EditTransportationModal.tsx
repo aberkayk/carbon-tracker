@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Modal, Button, Input } from '../ui';
-import { LegRow } from './LegRow';
-import { useTransportStore } from '../../stores/transportStore';
-import { useAuthStore } from '../../stores/authStore';
-import { validateGroupName, validateLeg } from '../../lib/validation';
-import { MAX_LEGS_PER_GROUP } from '../../lib/constants';
-import type { TripGroup } from '../../types';
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Modal, Button, Input } from "../ui";
+import { LegRow } from "./LegRow";
+import { useTransportStore } from "../../stores/transportStore";
+import { useAuthStore } from "../../stores/authStore";
+import { validateGroupName, validateLeg } from "../../lib/validation";
+import { MAX_LEGS_PER_GROUP } from "../../lib/constants";
+import type { TripGroup } from "../../types";
 
 interface LegFormData {
   from: string;
@@ -18,12 +18,12 @@ interface LegFormData {
 }
 
 const emptyLeg: LegFormData = {
-  from: '',
-  to: '',
-  flightNo: '',
-  date: '',
-  weightKg: '',
-  distanceKm: '',
+  from: "",
+  to: "",
+  flightNo: "",
+  date: "",
+  weightKg: "",
+  distanceKm: "",
 };
 
 interface EditTransportationModalProps {
@@ -39,9 +39,9 @@ export function EditTransportationModal({
 }: EditTransportationModalProps) {
   const { t } = useTranslation();
   const updateGroup = useTransportStore((s) => s.updateGroup);
-  const currency = useAuthStore((s) => s.user?.currency || 'EUR');
+  const currency = useAuthStore((s) => s.user?.currency || "EUR");
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [legs, setLegs] = useState<LegFormData[]>([{ ...emptyLeg }]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [maxLegsWarning, setMaxLegsWarning] = useState(false);
@@ -57,7 +57,7 @@ export function EditTransportationModal({
           date: leg.date,
           weightKg: String(leg.weightKg),
           distanceKm: String(leg.distanceKm),
-        }))
+        })),
       );
       setErrors({});
       setMaxLegsWarning(false);
@@ -66,7 +66,7 @@ export function EditTransportationModal({
 
   const handleLegChange = (index: number, field: string, value: string) => {
     setLegs((prev) =>
-      prev.map((leg, i) => (i === index ? { ...leg, [field]: value } : leg))
+      prev.map((leg, i) => (i === index ? { ...leg, [field]: value } : leg)),
     );
     setErrors((prev) => {
       const next = { ...prev };
@@ -127,7 +127,7 @@ export function EditTransportationModal({
         weightKg: parseFloat(leg.weightKg),
         distanceKm: parseFloat(leg.distanceKm),
       })),
-      currency
+      currency,
     );
 
     onClose();
@@ -137,19 +137,17 @@ export function EditTransportationModal({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={t('transportation.editTitle')}
+      title={t("transportation.editTitle")}
       footer={
         <>
-          <Button variant="outline" onClick={onClose}>
-            {t('common.cancel')}
-          </Button>
-          <Button onClick={handleSubmit}>{t('common.save')}</Button>
+          <Button onClick={onClose}>{t("common.cancel")}</Button>
+          <Button onClick={handleSubmit}>{t("common.save")}</Button>
         </>
       }
     >
       <div className="space-y-4">
         <Input
-          label={t('transportation.groupName')}
+          label={t("transportation.groupName")}
           value={name}
           onChange={(e) => {
             setName(e.target.value);
@@ -176,18 +174,17 @@ export function EditTransportationModal({
 
         {maxLegsWarning && (
           <p className="text-sm text-amber-600" role="alert">
-            {t('transportation.maxLegsWarning')}
+            {t("transportation.maxLegsWarning")}
           </p>
         )}
 
         <Button
           type="button"
-          variant="outline"
           size="sm"
           onClick={handleAddLeg}
           disabled={legs.length >= MAX_LEGS_PER_GROUP}
         >
-          + {t('transportation.addLeg')}
+          + {t("transportation.addLeg")}
         </Button>
       </div>
     </Modal>

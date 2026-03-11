@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Modal, Button, Input } from '../ui';
-import { useAuthStore } from '../../stores/authStore';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Modal, Button, Input } from "../ui";
+import { useAuthStore } from "../../stores/authStore";
 
 interface EditAccountModalProps {
   isOpen: boolean;
@@ -16,17 +16,17 @@ export function EditAccountModal({
 }: EditAccountModalProps) {
   const { t } = useTranslation();
   const user = useAuthStore((s) => s.user);
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (user && password === user.password) {
-      setPassword('');
-      setError('');
+      setPassword("");
+      setError("");
       onConfirm();
     } else {
-      setError(t('auth.loginError'));
+      setError(t("auth.loginError"));
     }
   };
 
@@ -34,19 +34,17 @@ export function EditAccountModal({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={t('profile.editAccount')}
+      title={t("profile.editAccount")}
       footer={
         <>
-          <Button variant="outline" onClick={onClose}>
-            {t('common.cancel')}
-          </Button>
-          <Button onClick={handleSubmit}>{t('common.edit')}</Button>
+          <Button onClick={onClose}>{t("common.cancel")}</Button>
+          <Button onClick={handleSubmit}>{t("common.edit")}</Button>
         </>
       }
     >
       <form onSubmit={handleSubmit}>
         <p className="text-sm text-gray-600 mb-4">
-          {t('profile.confirmPassword')}
+          {t("profile.confirmPassword")}
         </p>
         {error && (
           <div
@@ -57,12 +55,12 @@ export function EditAccountModal({
           </div>
         )}
         <Input
-          label={t('auth.password')}
+          label={t("auth.password")}
           showPasswordToggle
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
-            setError('');
+            setError("");
           }}
         />
       </form>

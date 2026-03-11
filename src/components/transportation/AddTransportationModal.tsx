@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Modal, Button, Input } from '../ui';
-import { LegRow } from './LegRow';
-import { useTransportStore } from '../../stores/transportStore';
-import { useAuthStore } from '../../stores/authStore';
-import { validateGroupName, validateLeg } from '../../lib/validation';
-import { MAX_LEGS_PER_GROUP } from '../../lib/constants';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Modal, Button, Input } from "../ui";
+import { LegRow } from "./LegRow";
+import { useTransportStore } from "../../stores/transportStore";
+import { useAuthStore } from "../../stores/authStore";
+import { validateGroupName, validateLeg } from "../../lib/validation";
+import { MAX_LEGS_PER_GROUP } from "../../lib/constants";
 
 interface LegFormData {
   from: string;
@@ -17,12 +17,12 @@ interface LegFormData {
 }
 
 const emptyLeg: LegFormData = {
-  from: '',
-  to: '',
-  flightNo: '',
-  date: '',
-  weightKg: '',
-  distanceKm: '',
+  from: "",
+  to: "",
+  flightNo: "",
+  date: "",
+  weightKg: "",
+  distanceKm: "",
 };
 
 interface AddTransportationModalProps {
@@ -36,16 +36,16 @@ export function AddTransportationModal({
 }: AddTransportationModalProps) {
   const { t } = useTranslation();
   const addGroup = useTransportStore((s) => s.addGroup);
-  const currency = useAuthStore((s) => s.user?.currency || 'EUR');
+  const currency = useAuthStore((s) => s.user?.currency || "EUR");
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [legs, setLegs] = useState<LegFormData[]>([{ ...emptyLeg }]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [maxLegsWarning, setMaxLegsWarning] = useState(false);
 
   const handleLegChange = (index: number, field: string, value: string) => {
     setLegs((prev) =>
-      prev.map((leg, i) => (i === index ? { ...leg, [field]: value } : leg))
+      prev.map((leg, i) => (i === index ? { ...leg, [field]: value } : leg)),
     );
     setErrors((prev) => {
       const next = { ...prev };
@@ -103,10 +103,10 @@ export function AddTransportationModal({
         weightKg: parseFloat(leg.weightKg),
         distanceKm: parseFloat(leg.distanceKm),
       })),
-      currency
+      currency,
     );
 
-    setName('');
+    setName("");
     setLegs([{ ...emptyLeg }]);
     setErrors({});
     setMaxLegsWarning(false);
@@ -114,7 +114,7 @@ export function AddTransportationModal({
   };
 
   const handleCancel = () => {
-    setName('');
+    setName("");
     setLegs([{ ...emptyLeg }]);
     setErrors({});
     setMaxLegsWarning(false);
@@ -125,19 +125,17 @@ export function AddTransportationModal({
     <Modal
       isOpen={isOpen}
       onClose={handleCancel}
-      title={t('transportation.addTitle')}
+      title={t("transportation.addTitle")}
       footer={
         <>
-          <Button variant="outline" onClick={handleCancel}>
-            {t('common.cancel')}
-          </Button>
-          <Button onClick={handleSubmit}>{t('common.add')}</Button>
+          <Button onClick={handleCancel}>{t("common.cancel")}</Button>
+          <Button onClick={handleSubmit}>{t("common.add")}</Button>
         </>
       }
     >
       <div className="space-y-4">
         <Input
-          label={t('transportation.groupName')}
+          label={t("transportation.groupName")}
           value={name}
           onChange={(e) => {
             setName(e.target.value);
@@ -164,18 +162,17 @@ export function AddTransportationModal({
 
         {maxLegsWarning && (
           <p className="text-sm text-amber-600" role="alert">
-            {t('transportation.maxLegsWarning')}
+            {t("transportation.maxLegsWarning")}
           </p>
         )}
 
         <Button
           type="button"
-          variant="outline"
           size="sm"
           onClick={handleAddLeg}
           disabled={legs.length >= MAX_LEGS_PER_GROUP}
         >
-          + {t('transportation.addLeg')}
+          + {t("transportation.addLeg")}
         </Button>
       </div>
     </Modal>

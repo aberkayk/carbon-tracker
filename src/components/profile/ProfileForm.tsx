@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button, Input, Card } from '../ui';
-import { useAuthStore } from '../../stores/authStore';
-import { useTransportStore } from '../../stores/transportStore';
-import { SUPPORTED_CURRENCIES } from '../../lib/constants';
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Button, Input, Card } from "../ui";
+import { useAuthStore } from "../../stores/authStore";
+import { useTransportStore } from "../../stores/transportStore";
+import { SUPPORTED_CURRENCIES } from "../../lib/constants";
 
 interface ProfileFormProps {
   isUnlocked: boolean;
@@ -14,15 +14,15 @@ export function ProfileForm({ isUnlocked }: ProfileFormProps) {
   const user = useAuthStore((s) => s.user);
   const updateUser = useAuthStore((s) => s.updateUser);
   const recalculateAllAmounts = useTransportStore(
-    (s) => s.recalculateAllAmounts
+    (s) => s.recalculateAllAmounts,
   );
 
   const [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    currency: 'EUR',
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    currency: "EUR",
     notificationOptIn: false,
     googleConnected: false,
     facebookConnected: false,
@@ -67,7 +67,7 @@ export function ProfileForm({ isUnlocked }: ProfileFormProps) {
       <Card className="p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Input
-            label={t('auth.firstName')}
+            label={t("auth.firstName")}
             value={form.firstName}
             onChange={(e) =>
               setForm((prev) => ({ ...prev, firstName: e.target.value }))
@@ -75,7 +75,7 @@ export function ProfileForm({ isUnlocked }: ProfileFormProps) {
             disabled={!isUnlocked}
           />
           <Input
-            label={t('auth.lastName')}
+            label={t("auth.lastName")}
             value={form.lastName}
             onChange={(e) =>
               setForm((prev) => ({ ...prev, lastName: e.target.value }))
@@ -85,7 +85,7 @@ export function ProfileForm({ isUnlocked }: ProfileFormProps) {
         </div>
         <div className="mt-4">
           <Input
-            label={t('auth.email')}
+            label={t("auth.email")}
             type="email"
             value={form.email}
             onChange={(e) =>
@@ -96,7 +96,7 @@ export function ProfileForm({ isUnlocked }: ProfileFormProps) {
         </div>
         <div className="mt-4">
           <Input
-            label={t('auth.password')}
+            label={t("auth.password")}
             showPasswordToggle
             value={form.password}
             onChange={(e) =>
@@ -107,7 +107,7 @@ export function ProfileForm({ isUnlocked }: ProfileFormProps) {
         </div>
         <div className="mt-4">
           <label className="text-sm font-medium text-gray-700 block mb-1">
-            {t('profile.currency')}
+            {t("profile.currency")}
           </label>
           <select
             value={form.currency}
@@ -128,7 +128,7 @@ export function ProfileForm({ isUnlocked }: ProfileFormProps) {
 
       <Card className="p-6">
         <h3 className="text-sm font-semibold text-gray-700 mb-3">
-          {t('profile.notifications')}
+          {t("profile.notifications")}
         </h3>
         <label className="flex items-center gap-2 text-sm text-gray-600">
           <input
@@ -142,19 +142,18 @@ export function ProfileForm({ isUnlocked }: ProfileFormProps) {
             }
             disabled={!isUnlocked}
           />
-          {t('profile.notifications')}
+          {t("profile.notifications")}
         </label>
       </Card>
 
       <Card className="p-6">
         <h3 className="text-sm font-semibold text-gray-700 mb-3">
-          {t('profile.socialConnections')}
+          {t("profile.socialConnections")}
         </h3>
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-600">Google</span>
             <Button
-              variant={form.googleConnected ? 'outline' : 'primary'}
               size="sm"
               disabled={!isUnlocked}
               onClick={() =>
@@ -165,14 +164,13 @@ export function ProfileForm({ isUnlocked }: ProfileFormProps) {
               }
             >
               {form.googleConnected
-                ? t('profile.disconnectGoogle')
-                : t('profile.connectGoogle')}
+                ? t("profile.disconnectGoogle")
+                : t("profile.connectGoogle")}
             </Button>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-600">Facebook</span>
             <Button
-              variant={form.facebookConnected ? 'outline' : 'primary'}
               size="sm"
               disabled={!isUnlocked}
               onClick={() =>
@@ -183,8 +181,8 @@ export function ProfileForm({ isUnlocked }: ProfileFormProps) {
               }
             >
               {form.facebookConnected
-                ? t('profile.disconnectFacebook')
-                : t('profile.connectFacebook')}
+                ? t("profile.disconnectFacebook")
+                : t("profile.connectFacebook")}
             </Button>
           </div>
         </div>
@@ -193,7 +191,7 @@ export function ProfileForm({ isUnlocked }: ProfileFormProps) {
       {isUnlocked && (
         <div className="flex justify-end">
           <Button onClick={handleSave} size="lg">
-            {t('common.save')}
+            {t("common.save")}
           </Button>
         </div>
       )}

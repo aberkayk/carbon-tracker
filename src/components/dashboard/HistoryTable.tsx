@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Button, Pagination } from '../ui';
-import { DetailOverlay } from './DetailOverlay';
-import { useAuthStore } from '../../stores/authStore';
-import { formatCurrency, formatNumber } from '../../lib/calculation';
-import type { TripGroup } from '../../types';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Button, Pagination } from "../ui";
+import { DetailOverlay } from "./DetailOverlay";
+import { useAuthStore } from "../../stores/authStore";
+import { formatCurrency, formatNumber } from "../../lib/calculation";
+import type { TripGroup } from "../../types";
 
 interface HistoryTableProps {
   groups: TripGroup[];
@@ -20,14 +20,14 @@ export function HistoryTable({
   onDownload,
 }: HistoryTableProps) {
   const { t } = useTranslation();
-  const currency = useAuthStore((s) => s.user?.currency || 'EUR');
+  const currency = useAuthStore((s) => s.user?.currency || "EUR");
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedGroupId, setExpandedGroupId] = useState<string | null>(null);
 
   const totalPages = Math.ceil(groups.length / ITEMS_PER_PAGE);
   const paginatedGroups = groups.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   const toggleOverlay = (groupId: string) => {
@@ -41,11 +41,11 @@ export function HistoryTable({
         <table className="w-full text-sm">
           <thead>
             <tr className="text-left text-gray-500 border-b">
-              <th className="pb-3 pr-4">{t('dashboard.name')}</th>
-              <th className="pb-3 pr-4">{t('dashboard.distance')}</th>
-              <th className="pb-3 pr-4">{t('dashboard.weight')}</th>
-              <th className="pb-3 pr-4">{t('dashboard.amount')}</th>
-              <th className="pb-3 text-right">{t('common.details')}</th>
+              <th className="pb-3 pr-4">{t("dashboard.name")}</th>
+              <th className="pb-3 pr-4">{t("dashboard.distance")}</th>
+              <th className="pb-3 pr-4">{t("dashboard.weight")}</th>
+              <th className="pb-3 pr-4">{t("dashboard.amount")}</th>
+              <th className="pb-3 text-right">{t("common.details")}</th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +61,7 @@ export function HistoryTable({
                       >
                         <span
                           className={`inline-block transition-transform ${
-                            expandedGroupId === group.id ? 'rotate-90' : ''
+                            expandedGroupId === group.id ? "rotate-90" : ""
                           }`}
                         >
                           &#9654;
@@ -69,30 +69,21 @@ export function HistoryTable({
                       </button>
                       <span className="flex-1 pr-4">{group.name}</span>
                       <span className="w-32 pr-4">
-                        {formatNumber(group.totals.distanceKm, 2)}{' '}
-                        {t('units.km')}
+                        {formatNumber(group.totals.distanceKm, 2)}{" "}
+                        {t("units.km")}
                       </span>
                       <span className="w-32 pr-4">
-                        {formatNumber(group.totals.weightKg, 2)}{' '}
-                        {t('units.kg')}
+                        {formatNumber(group.totals.weightKg, 2)} {t("units.kg")}
                       </span>
                       <span className="w-32 pr-4">
                         {formatCurrency(group.totals.amount, currency)}
                       </span>
                       <div className="flex gap-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => onDownload(group)}
-                        >
-                          {t('common.download')}
+                        <Button size="sm" onClick={() => onDownload(group)}>
+                          {t("common.download")}
                         </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => onDetails(group)}
-                        >
-                          {t('common.details')}
+                        <Button size="sm" onClick={() => onDetails(group)}>
+                          {t("common.details")}
                         </Button>
                       </div>
                     </div>
@@ -126,7 +117,7 @@ export function HistoryTable({
               >
                 <span
                   className={`inline-block transition-transform ${
-                    expandedGroupId === group.id ? 'rotate-90' : ''
+                    expandedGroupId === group.id ? "rotate-90" : ""
                   }`}
                 >
                   &#9654;
@@ -135,38 +126,30 @@ export function HistoryTable({
             </div>
             <div className="grid grid-cols-3 gap-2 text-sm mb-3">
               <div>
-                <p className="text-gray-500">{t('dashboard.distance')}</p>
+                <p className="text-gray-500">{t("dashboard.distance")}</p>
                 <p className="font-medium">
-                  {formatNumber(group.totals.distanceKm, 2)} {t('units.km')}
+                  {formatNumber(group.totals.distanceKm, 2)} {t("units.km")}
                 </p>
               </div>
               <div>
-                <p className="text-gray-500">{t('dashboard.weight')}</p>
+                <p className="text-gray-500">{t("dashboard.weight")}</p>
                 <p className="font-medium">
-                  {formatNumber(group.totals.weightKg, 2)} {t('units.kg')}
+                  {formatNumber(group.totals.weightKg, 2)} {t("units.kg")}
                 </p>
               </div>
               <div>
-                <p className="text-gray-500">{t('dashboard.amount')}</p>
+                <p className="text-gray-500">{t("dashboard.amount")}</p>
                 <p className="font-medium">
                   {formatCurrency(group.totals.amount, currency)}
                 </p>
               </div>
             </div>
             <div className="flex gap-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onDownload(group)}
-              >
-                {t('common.download')}
+              <Button size="sm" onClick={() => onDownload(group)}>
+                {t("common.download")}
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => onDetails(group)}
-              >
-                {t('common.details')}
+              <Button size="sm" onClick={() => onDetails(group)}>
+                {t("common.details")}
               </Button>
             </div>
             {expandedGroupId === group.id && (
@@ -180,7 +163,9 @@ export function HistoryTable({
       </div>
 
       {groups.length === 0 && (
-        <p className="text-center text-gray-500 py-8">{t('dashboard.noData')}</p>
+        <p className="text-center text-gray-500 py-8">
+          {t("dashboard.noData")}
+        </p>
       )}
 
       <Pagination

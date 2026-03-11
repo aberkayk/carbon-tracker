@@ -1,0 +1,99 @@
+{
+  "common": {
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "add": "Ekle",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "download": "İndir",
+    "details": "Detaylar",
+    "close": "Kapat",
+    "logout": "Çıkış",
+    "profile": "Profil",
+    "dashboard": "Panel",
+    "loading": "Yükleniyor...",
+    "prev": "Önceki",
+    "next": "Sonraki"
+  },
+  "auth": {
+    "login": "Giriş Yap",
+    "signUp": "Kayıt Ol",
+    "email": "E-posta",
+    "password": "Şifre",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "termsConfirmation": "Şartları ve Koşulları kabul ediyorum",
+    "noAccount": "Hesabınız yok mu?",
+    "hasAccount": "Zaten hesabınız var mı?",
+    "signInGoogle": "Google ile giriş yap",
+    "signInFacebook": "Facebook ile giriş yap",
+    "showPassword": "Şifreyi göster",
+    "hidePassword": "Şifreyi gizle",
+    "loginError": "Geçersiz e-posta veya şifre"
+  },
+  "dashboard": {
+    "welcome": "Climateware'a Hoş Geldiniz",
+    "description": "Hava yolculuğundan kaynaklanan karbon emisyonlarınızı takip edin ve dengeleyin",
+    "shareStatistics": "İstatistikleri Paylaş",
+    "amount": "Miktar",
+    "distance": "Mesafe",
+    "totalTransportation": "Toplam Ulaşım",
+    "payment": "Ödeme",
+    "history": "Geçmiş",
+    "addTransportation": "Ulaşım Verisi Ekle",
+    "noData": "Henüz ulaşım verisi yok. İlk seyahatinizi ekleyin!",
+    "name": "İsim",
+    "weight": "Ağırlık",
+    "equivalents": {
+      "title": "Eşdeğer Etki",
+      "kmDriven": "araç kullanımı",
+      "seaIceMelt": "deniz buzu erimesi",
+      "lightbulbUsage": "ampul kullanımı",
+      "beefConsumption": "sığır eti tüketimi"
+    }
+  },
+  "transportation": {
+    "addTitle": "Ulaşım Verisi Ekle",
+    "editTitle": "Ulaşım Verisini Düzenle",
+    "groupName": "İsim",
+    "from": "Nereden",
+    "to": "Nereye",
+    "flightNo": "Uçuş No",
+    "date": "Tarih",
+    "weight": "Ağırlık (kg)",
+    "distance": "Mesafe (km)",
+    "addLeg": "Bacak Ekle",
+    "maxLegsWarning": "Grup başına en fazla 15 bacak",
+    "removeLeg": "Bacağı Kaldır"
+  },
+  "profile": {
+    "title": "Profil",
+    "editAccount": "Hesabı Düzenle?",
+    "confirmPassword": "Profilinizi düzenlemek için şifrenizi girin",
+    "currency": "Para Birimi",
+    "language": "Dil",
+    "notifications": "E-posta Bildirimleri",
+    "socialConnections": "Sosyal Bağlantılar",
+    "connectGoogle": "Google Bağla",
+    "disconnectGoogle": "Google Bağlantısını Kes",
+    "connectFacebook": "Facebook Bağla",
+    "disconnectFacebook": "Facebook Bağlantısını Kes",
+    "locked": "Profil kilitli",
+    "unlocked": "Profil kilidi açık"
+  },
+  "validation": {
+    "required": "Bu alan zorunludur",
+    "invalidEmail": "Geçerli bir e-posta adresi girin",
+    "mustBePositive": "Değer sıfırdan büyük olmalıdır",
+    "mustBeNumber": "Geçerli bir sayı girin",
+    "invalidDate": "Geçerli bir tarih girin",
+    "termsRequired": "Şartları ve koşulları kabul etmelisiniz"
+  },
+  "units": {
+    "kgCO2e": "kgCO2e",
+    "km": "km",
+    "kg": "kg",
+    "m3": "m³",
+    "days": "gün"
+  }
+}

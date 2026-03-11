@@ -1,0 +1,99 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "download": "Download",
+    "details": "Details",
+    "close": "Close",
+    "logout": "Logout",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "loading": "Loading...",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "auth": {
+    "login": "Login",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "termsConfirmation": "I accept the Terms and Conditions",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInGoogle": "Sign in with Google",
+    "signInFacebook": "Sign in with Facebook",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "loginError": "Invalid email or password"
+  },
+  "dashboard": {
+    "welcome": "Welcome to Climateware",
+    "description": "Track and offset your carbon emissions from air travel",
+    "shareStatistics": "Share Statistics",
+    "amount": "Amount",
+    "distance": "Distance",
+    "totalTransportation": "Total Transportation",
+    "payment": "Payment",
+    "history": "History",
+    "addTransportation": "Add Transportation Data",
+    "noData": "No transportation data yet. Add your first trip!",
+    "name": "Name",
+    "weight": "Weight",
+    "equivalents": {
+      "title": "Equivalent Impact",
+      "kmDriven": "km driven",
+      "seaIceMelt": "sea ice melt",
+      "lightbulbUsage": "lightbulb usage",
+      "beefConsumption": "beef consumption"
+    }
+  },
+  "transportation": {
+    "addTitle": "Add Transportation Data",
+    "editTitle": "Edit Transportation Data",
+    "groupName": "Name",
+    "from": "From",
+    "to": "To",
+    "flightNo": "Flight No",
+    "date": "Date",
+    "weight": "Weight (kg)",
+    "distance": "Distance (km)",
+    "addLeg": "Add Leg",
+    "maxLegsWarning": "Maximum 15 legs per group",
+    "removeLeg": "Remove Leg"
+  },
+  "profile": {
+    "title": "Profile",
+    "editAccount": "Edit Account?",
+    "confirmPassword": "Enter your password to edit your profile",
+    "currency": "Currency",
+    "language": "Language",
+    "notifications": "Email Notifications",
+    "socialConnections": "Social Connections",
+    "connectGoogle": "Connect Google",
+    "disconnectGoogle": "Disconnect Google",
+    "connectFacebook": "Connect Facebook",
+    "disconnectFacebook": "Disconnect Facebook",
+    "locked": "Profile is locked",
+    "unlocked": "Profile is unlocked"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "mustBePositive": "Value must be greater than zero",
+    "mustBeNumber": "Please enter a valid number",
+    "invalidDate": "Please enter a valid date",
+    "termsRequired": "You must accept the terms and conditions"
+  },
+  "units": {
+    "kgCO2e": "kgCO2e",
+    "km": "km",
+    "kg": "kg",
+    "m3": "m³",
+    "days": "days"
+  }
+}

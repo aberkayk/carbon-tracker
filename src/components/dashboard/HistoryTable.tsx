@@ -3,11 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Button, Pagination } from "../ui";
 import { DetailOverlay } from "./DetailOverlay";
 import { formatNumber } from "../../lib/calculation";
-import {
-  DownloadIcon,
-  DetailIcon,
-  ChevronIcon,
-} from "../../assets/icons";
+import { DownloadIcon, DetailIcon, ChevronIcon } from "../../assets/icons";
 import type { TripGroup } from "../../types";
 
 interface HistoryTableProps {
@@ -40,14 +36,14 @@ export function HistoryTable({
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-4 md:gap-6 lg:gap-8">
       {/* Section header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold font-display text-darkblue-100">
           <span className="hidden lg:inline">{t("dashboard.table")}</span>
           <span className="lg:hidden">{t("dashboard.history")}</span>
         </h2>
-        <Button size="sm" onClick={onAdd}>
+        <Button size="md" onClick={onAdd}>
           {t("dashboard.addTransportation")}
         </Button>
       </div>
@@ -143,7 +139,9 @@ export function HistoryTable({
             className="bg-white border border-grey-50 rounded-xl p-4"
           >
             <div className="flex items-center justify-between mb-3">
-              <h4 className="font-bold text-darkblue-100 text-sm">{group.name}</h4>
+              <h4 className="font-bold text-darkblue-100 text-sm">
+                {group.name}
+              </h4>
               <button
                 onClick={() => toggleOverlay(group.id)}
                 className="p-1 text-darkblue-50 hover:text-darkblue-100 transition-colors"
@@ -162,19 +160,25 @@ export function HistoryTable({
 
             <div className="space-y-2 mb-4 text-sm">
               <div className="flex justify-between">
-                <span className="text-darkblue-50">{t("dashboard.amount")}</span>
+                <span className="text-darkblue-50">
+                  {t("dashboard.amount")}
+                </span>
                 <span className="font-bold text-green-100">
                   {formatNumber(group.totals.amount, 2)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-darkblue-50">{t("dashboard.distance")}</span>
+                <span className="text-darkblue-50">
+                  {t("dashboard.distance")}
+                </span>
                 <span className="text-darkblue-100">
                   {formatNumber(group.totals.distanceKm, 0)} {t("units.km")}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-darkblue-50">{t("dashboard.weight")}</span>
+                <span className="text-darkblue-50">
+                  {t("dashboard.weight")}
+                </span>
                 <span className="text-darkblue-100">
                   {formatNumber(group.totals.weightKg, 0)} {t("units.kg")}
                 </span>
@@ -218,7 +222,9 @@ export function HistoryTable({
             className="bg-white border border-grey-50 rounded-xl p-4"
           >
             <div className="flex items-center justify-between mb-3">
-              <h4 className="font-bold text-darkblue-100 text-sm">{group.name}</h4>
+              <h4 className="font-bold text-darkblue-100 text-sm">
+                {group.name}
+              </h4>
               <button
                 onClick={() => toggleOverlay(group.id)}
                 className="p-1 text-darkblue-50 hover:text-darkblue-100 transition-colors"
@@ -237,19 +243,25 @@ export function HistoryTable({
 
             <div className="space-y-2 mb-4 text-sm">
               <div className="flex justify-between">
-                <span className="text-darkblue-50">{t("dashboard.amount")}</span>
+                <span className="text-darkblue-50">
+                  {t("dashboard.amount")}
+                </span>
                 <span className="font-bold text-green-100">
                   {formatNumber(group.totals.amount, 2)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-darkblue-50">{t("dashboard.distance")}</span>
+                <span className="text-darkblue-50">
+                  {t("dashboard.distance")}
+                </span>
                 <span className="text-darkblue-100">
                   {formatNumber(group.totals.distanceKm, 0)} {t("units.km")}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-darkblue-50">{t("dashboard.weight")}</span>
+                <span className="text-darkblue-50">
+                  {t("dashboard.weight")}
+                </span>
                 <span className="text-darkblue-100">
                   {formatNumber(group.totals.weightKg, 0)} {t("units.kg")}
                 </span>

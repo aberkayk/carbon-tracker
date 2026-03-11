@@ -45,7 +45,7 @@ export default function DashboardPage() {
         </button>
       </div>
 
-      <div className="space-y-8">
+      <div className="space-y-16 md:space-y-12 lg:space-y-16">
         <section>
           <SummaryCards />
         </section>

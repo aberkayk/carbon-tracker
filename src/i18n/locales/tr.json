@@ -22,7 +22,6 @@
     "password": "Şifre",
     "firstName": "Ad",
     "lastName": "Soyad",
-    "termsConfirmation": "Şartları ve Koşulları kabul ediyorum",
     "noAccount": "Hesabınız yok mu?",
     "hasAccount": "Zaten hesabınız var mı?",
     "signInGoogle": "Google ile giriş yap",
@@ -35,7 +34,10 @@
     "stayConnected": "Bağlantıda Kalın.",
     "back": "Geri",
     "createAccount": "Hesap Oluştur",
-    "orCreateWith": "Veya hesap oluştur"
+    "orCreateWith": "Veya hesap oluştur",
+    "termsAndConditions": "Kullanım Şartları & Koşulları",
+    "privacyPolicy": "gizlilik politikası",
+    "termsAndPrivacy": "<1>{{terms}}</1>'nı okudum ve kabul ediyorum. <3>{{privacy}}</3> geçerlidir."
   },
   "dashboard": {
     "welcome": "Climateware'a Hoş Geldiniz",
@@ -93,7 +95,8 @@
     "mustBePositive": "Değer sıfırdan büyük olmalıdır",
     "mustBeNumber": "Geçerli bir sayı girin",
     "invalidDate": "Geçerli bir tarih girin",
-    "termsRequired": "Şartları ve koşulları kabul etmelisiniz"
+    "termsRequired": "Şartları ve koşulları kabul etmelisiniz",
+    "emailExists": "Bu e-posta adresi ile kayıtlı bir hesap zaten var"
   },
   "units": {
     "kgCO2e": "kgCO2e",

@@ -22,7 +22,6 @@
     "password": "Password",
     "firstName": "First Name",
     "lastName": "Last Name",
-    "termsConfirmation": "I accept the Terms and Conditions",
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
     "signInGoogle": "Sign in with Google",
@@ -35,7 +34,10 @@
     "stayConnected": "Stay Connected.",
     "back": "Back",
     "createAccount": "Create Account",
-    "orCreateWith": "Or create account with"
+    "orCreateWith": "Or create account with",
+    "termsAndConditions": "Terms & Conditions",
+    "privacyPolicy": "privacy policy",
+    "termsAndPrivacy": "I have read the <1>{{terms}}</1> and agree to them. The <3>{{privacy}}</3> applies."
   },
   "dashboard": {
     "welcome": "Welcome to Climateware",
@@ -93,7 +95,8 @@
     "mustBePositive": "Value must be greater than zero",
     "mustBeNumber": "Please enter a valid number",
     "invalidDate": "Please enter a valid date",
-    "termsRequired": "You must accept the terms and conditions"
+    "termsRequired": "You must accept the terms and conditions",
+    "emailExists": "An account with this email already exists"
   },
   "units": {
     "kgCO2e": "kgCO2e",

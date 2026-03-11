@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import type { User } from '../types';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { User } from "../types";
 
 interface AuthState {
   user: User | null;
@@ -11,7 +11,7 @@ interface AuthState {
     lastName: string;
     email: string;
     password: string;
-  }) => void;
+  }) => boolean;
   logout: () => void;
   updateUser: (updates: Partial<User>) => void;
 }
@@ -24,10 +24,10 @@ export const useAuthStore = create<AuthState>()(
 
       login: (email: string, password: string) => {
         const users = JSON.parse(
-          localStorage.getItem('registered_users') || '[]'
+          localStorage.getItem("registered_users") || "[]",
         ) as User[];
         const found = users.find(
-          (u) => u.email === email && u.password === password
+          (u) => u.email === email && u.password === password,
         );
         if (found) {
           set({ user: found, isAuthenticated: true });
@@ -37,23 +37,30 @@ export const useAuthStore = create<AuthState>()(
       },
 
       signUp: (data) => {
+        const users = JSON.parse(
+          localStorage.getItem("registered_users") || "[]",
+        ) as User[];
+
+        if (users.some((u) => u.email === data.email)) {
+          return false;
+        }
+
         const newUser: User = {
           id: crypto.randomUUID(),
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
           password: data.password,
-          currency: 'EUR',
-          language: 'en',
+          currency: "EUR",
+          language: "en",
           notificationOptIn: false,
           social: { googleConnected: false, facebookConnected: false },
         };
-        const users = JSON.parse(
-          localStorage.getItem('registered_users') || '[]'
-        ) as User[];
+
         users.push(newUser);
-        localStorage.setItem('registered_users', JSON.stringify(users));
+        localStorage.setItem("registered_users", JSON.stringify(users));
         set({ user: newUser, isAuthenticated: true });
+        return true;
       },
 
       logout: () => {
@@ -66,15 +73,15 @@ export const useAuthStore = create<AuthState>()(
         const updated = { ...current, ...updates };
         set({ user: updated });
         const users = JSON.parse(
-          localStorage.getItem('registered_users') || '[]'
+          localStorage.getItem("registered_users") || "[]",
         ) as User[];
         const idx = users.findIndex((u) => u.id === updated.id);
         if (idx !== -1) {
           users[idx] = updated;
-          localStorage.setItem('registered_users', JSON.stringify(users));
+          localStorage.setItem("registered_users", JSON.stringify(users));
         }
       },
     }),
-    { name: 'auth-storage' }
-  )
+    { name: "auth-storage" },
+  ),
 );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import { Button, Input, Checkbox } from "../ui";
 import { useAuthStore } from "../../stores/authStore";
 import { validateSignUpForm } from "../../lib/validation";
@@ -19,6 +19,7 @@ export function SignUpForm() {
     termsAccepted: false,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [signUpError, setSignUpError] = useState("");
 
   const handleChange = (field: string, value: string | boolean) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -27,6 +28,7 @@ export function SignUpForm() {
       delete next[field];
       return next;
     });
+    setSignUpError("");
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -40,13 +42,17 @@ export function SignUpForm() {
       );
       return;
     }
-    signUp({
+    const success = signUp({
       firstName: form.firstName,
       lastName: form.lastName,
       email: form.email,
       password: form.password,
     });
-    navigate("/dashboard");
+    if (success) {
+      navigate("/dashboard");
+    } else {
+      setSignUpError(t("validation.emailExists"));
+    }
   };
 
   return (
@@ -57,6 +63,14 @@ export function SignUpForm() {
 
       <div className="bg-[#f8f9fa] p-8 rounded-lg">
         <form onSubmit={handleSubmit} className="space-y-4">
+          {signUpError && (
+            <div
+              className="bg-red-50 text-red-100 px-4 py-3 rounded-lg text-sm"
+              role="alert"
+            >
+              {signUpError}
+            </div>
+          )}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
               placeholder={t("auth.firstName")}
@@ -97,10 +111,19 @@ export function SignUpForm() {
             error={errors.termsAccepted}
             label={
               <p className="text-darkblue-100 leading-tight">
-                I have read the{" "}
-                <span className="font-bold">Terms & Conditions</span> and agree
-                to them. The <span className="font-bold">privacy policy</span>{" "}
-                applies.
+                <Trans
+                  i18nKey="auth.termsAndPrivacy"
+                  values={{
+                    terms: t("auth.termsAndConditions"),
+                    privacy: t("auth.privacyPolicy"),
+                  }}
+                  components={[
+                    <span key="0" />,
+                    <span key="1" className="font-bold" />,
+                    <span key="2" />,
+                    <span key="3" className="font-bold" />,
+                  ]}
+                />
               </p>
             }
           />

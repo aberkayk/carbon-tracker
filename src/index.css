@@ -81,11 +81,25 @@
   .animate-accordion-down {
     animation: accordion-down 300ms ease-out forwards;
   }
-}
+
   .focus-ring {
     @apply outline-none rounded-md focus:ring-1 focus:ring-offset-2 focus:ring-darkblue-100;
   }
+
   .peer-focus-ring {
     @apply peer-focus:outline-none peer-focus:rounded-md peer-focus:ring-1 peer-focus:ring-offset-2 peer-focus:ring-darkblue-100;
   }
+
+}
+
+/* Tailwind v4 @utility — supports group-hover: and other variants */
+
+/* Converts a dark SVG icon to pink-100 (#ed1979) */
+@utility icon-pink {
+  filter: brightness(0) saturate(100%) invert(24%) sepia(73%) saturate(4084%) hue-rotate(314deg) brightness(97%) contrast(105%);
+}
+
+/* Converts a dark SVG icon to white */
+@utility icon-white {
+  filter: brightness(0) invert(1);
 }

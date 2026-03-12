@@ -1,14 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Pagination } from "../ui";
-import { DetailOverlay } from "./DetailOverlay";
-import { formatNumber } from "../../lib/calculation";
-import {
-  DownloadIcon,
-  DetailIcon,
-  ChevronIcon,
-  InvoiceIcon,
-} from "../../assets/icons";
+import { HistoryDesktopTable } from "./HistoryDesktopTable";
+import { HistoryCard } from "./HistoryCard";
 import type { TripGroup } from "../../types";
 
 interface HistoryTableProps {
@@ -53,266 +47,26 @@ export function HistoryTable({
         </Button>
       </div>
 
-      {/* Desktop table */}
-      <div className="hidden lg:block">
-        <div className="border-b border-grey-50 pb-2 mb-4">
-          <div className="grid grid-cols-[2rem_1fr_10rem_10rem_8rem_6rem] gap-4 text-sm text-darkblue-50 font-medium px-2">
-            <span />
-            <span>{t("dashboard.name")}</span>
-            <span>{t("dashboard.distance")}</span>
-            <span>{t("dashboard.weight")}</span>
-            <span>{t("dashboard.amount")}</span>
-            <span>{t("dashboard.activity")}</span>
-          </div>
-        </div>
+      <HistoryDesktopTable
+        groups={paginatedGroups}
+        expandedGroupId={expandedGroupId}
+        onToggle={toggleOverlay}
+        onDetails={onDetails}
+        onDownload={onDownload}
+        onCloseOverlay={() => setExpandedGroupId(null)}
+      />
 
+      {/* Mobile + Tablet: responsive card grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:hidden gap-4 items-start">
         {paginatedGroups.map((group) => (
-          <div
+          <HistoryCard
             key={group.id}
-            className={`border-grey-50 last:border-0 transition-shadow duration-300 `}
-          >
-            <div
-              role="button"
-              onClick={() => toggleOverlay(group.id)}
-              className={`grid grid-cols-[2rem_1fr_10rem_10rem_8rem_6rem] gap-4 items-center py-3 px-2 cursor-pointer transition-all duration-300 ${
-                expandedGroupId === group.id
-                  ? "shadow-md rounded-xl bg-white relative z-10"
-                  : ""
-              }`}
-            >
-              {/* Chevron */}
-              <button
-                className="flex items-center justify-center w-6 h-6 text-darkblue-50 hover:text-darkblue-100 transition-colors hover:cursor-pointer"
-                aria-label="Toggle details"
-                aria-expanded={expandedGroupId === group.id}
-              >
-                <img
-                  src={ChevronIcon}
-                  alt=""
-                  className={`size-8 transition-transform ${
-                    expandedGroupId === group.id ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {/* Name */}
-              <span className="font-bold text-darkblue-100 text-sm truncate">
-                {group.name}
-              </span>
-
-              {/* Distance */}
-              <span className="text-sm text-darkblue-100">
-                {formatNumber(group.totals.distanceKm, 0)} {t("units.km")}
-              </span>
-
-              {/* Weight */}
-              <span className="text-sm text-darkblue-100">
-                {formatNumber(group.totals.weightKg, 0)} {t("units.kg")}
-              </span>
-
-              {/* Amount */}
-              <span className="text-sm font-bold text-green-100">
-                {formatNumber(group.totals.amount, 2)}
-              </span>
-
-              {/* Actions */}
-              <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
-                <button
-                  onClick={() => onDownload(group)}
-                  className="p-1.5 text-darkblue-50 hover:text-darkblue-100 transition-colors"
-                  aria-label={t("common.download")}
-                >
-                  <img
-                    src={DownloadIcon}
-                    alt=""
-                    className="size-8 hover:cursor-pointer hover:bg-grey-50 rounded-full"
-                  />
-                </button>
-                <button
-                  onClick={() => onDetails(group)}
-                  className="p-1.5 text-darkblue-50 hover:text-darkblue-100 transition-colors"
-                  aria-label={t("common.details")}
-                >
-                  <img
-                    src={InvoiceIcon}
-                    alt=""
-                    className="size-8 hover:cursor-pointer hover:bg-grey-50 rounded-full"
-                  />
-                </button>
-              </div>
-            </div>
-
-            {expandedGroupId === group.id && (
-              <DetailOverlay
-                group={group}
-                onClose={() => setExpandedGroupId(null)}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Tablet: 2-column card grid */}
-      <div className="hidden md:grid md:grid-cols-2 lg:hidden gap-4">
-        {paginatedGroups.map((group) => (
-          <div
-            key={group.id}
-            className="bg-white border border-grey-50 rounded-xl p-4"
-          >
-            <div className="flex items-center justify-between mb-3">
-              <h4 className="font-bold text-darkblue-100 text-sm">
-                {group.name}
-              </h4>
-              <button
-                onClick={() => toggleOverlay(group.id)}
-                className="p-1 text-darkblue-50 hover:text-darkblue-100 transition-colors"
-                aria-label="Toggle details"
-                aria-expanded={expandedGroupId === group.id}
-              >
-                <img
-                  src={ChevronIcon}
-                  alt=""
-                  className={`size-8 hover:bg-grey-50 transition-transform ${
-                    expandedGroupId === group.id ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-            </div>
-
-            <div className="space-y-2 mb-4 text-sm">
-              <div className="flex justify-between">
-                <span className="text-darkblue-50">
-                  {t("dashboard.amount")}
-                </span>
-                <span className="font-bold text-green-100">
-                  {formatNumber(group.totals.amount, 2)}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-darkblue-50">
-                  {t("dashboard.distance")}
-                </span>
-                <span className="text-darkblue-100">
-                  {formatNumber(group.totals.distanceKm, 0)} {t("units.km")}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-darkblue-50">
-                  {t("dashboard.weight")}
-                </span>
-                <span className="text-darkblue-100">
-                  {formatNumber(group.totals.weightKg, 0)} {t("units.kg")}
-                </span>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <button
-                onClick={() => onDownload(group)}
-                className="w-full flex items-center justify-center gap-2 py-2 border border-pink-100 text-pink-100 rounded-md text-sm font-medium hover:bg-pink-100 hover:text-white-100 transition-colors"
-              >
-                <img src={DownloadIcon} alt="" className="w-4 h-4" />
-                {t("common.download")}
-              </button>
-              <button
-                onClick={() => onDetails(group)}
-                className="w-full flex items-center justify-center gap-2 py-2 border border-pink-100 text-pink-100 rounded-md text-sm font-medium hover:bg-pink-100 hover:text-white-100 transition-colors"
-              >
-                <img src={DetailIcon} alt="" className="w-4 h-4" />
-                {t("common.details")}
-              </button>
-            </div>
-
-            {expandedGroupId === group.id && (
-              <DetailOverlay
-                group={group}
-                onClose={() => setExpandedGroupId(null)}
-                inline
-              />
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Mobile: single column cards */}
-      <div className="md:hidden space-y-4">
-        {paginatedGroups.map((group) => (
-          <div
-            key={group.id}
-            className="bg-white border border-grey-50 rounded-xl p-4"
-          >
-            <div className="flex items-center justify-between mb-3">
-              <h4 className="font-bold text-darkblue-100 text-sm">
-                {group.name}
-              </h4>
-              <button
-                onClick={() => toggleOverlay(group.id)}
-                className="p-1 text-darkblue-50 hover:text-darkblue-100 transition-colors"
-                aria-label="Toggle details"
-                aria-expanded={expandedGroupId === group.id}
-              >
-                <img
-                  src={ChevronIcon}
-                  alt=""
-                  className={`w-4 h-4 transition-transform ${
-                    expandedGroupId === group.id ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-            </div>
-
-            <div className="space-y-2 mb-4 text-sm">
-              <div className="flex justify-between">
-                <span className="text-darkblue-50">
-                  {t("dashboard.amount")}
-                </span>
-                <span className="font-bold text-green-100">
-                  {formatNumber(group.totals.amount, 2)}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-darkblue-50">
-                  {t("dashboard.distance")}
-                </span>
-                <span className="text-darkblue-100">
-                  {formatNumber(group.totals.distanceKm, 0)} {t("units.km")}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-darkblue-50">
-                  {t("dashboard.weight")}
-                </span>
-                <span className="text-darkblue-100">
-                  {formatNumber(group.totals.weightKg, 0)} {t("units.kg")}
-                </span>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <button
-                onClick={() => onDownload(group)}
-                className="w-full flex items-center justify-center gap-2 py-2 border border-pink-100 text-pink-100 rounded-md text-sm font-medium hover:bg-pink-100 hover:text-white-100 transition-colors"
-              >
-                <img src={DownloadIcon} alt="" className="w-4 h-4" />
-                {t("common.download")}
-              </button>
-              <button
-                onClick={() => onDetails(group)}
-                className="w-full flex items-center justify-center gap-2 py-2 border border-pink-100 text-pink-100 rounded-md text-sm font-medium hover:bg-pink-100 hover:text-white-100 transition-colors"
-              >
-                <img src={DetailIcon} alt="" className="w-4 h-4" />
-                {t("common.details")}
-              </button>
-            </div>
-
-            {expandedGroupId === group.id && (
-              <DetailOverlay
-                group={group}
-                onClose={() => setExpandedGroupId(null)}
-                inline
-              />
-            )}
-          </div>
+            group={group}
+            isExpanded={expandedGroupId === group.id}
+            onToggle={() => toggleOverlay(group.id)}
+            onDetails={onDetails}
+            onDownload={onDownload}
+          />
         ))}
       </div>
 

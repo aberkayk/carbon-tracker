@@ -1,7 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { Button } from "../ui";
 import { DetailOverlay } from "./DetailOverlay";
-import { formatNumber } from "../../lib/calculation";
+import { formatNumber, formatCurrency } from "../../lib/calculation";
+import { useAuthStore } from "../../stores/authStore";
 import { DownloadIconSvg, DetailIconSvg, ChevronIcon } from "../../assets/icons";
 import type { TripGroup } from "../../types";
 
@@ -21,6 +22,7 @@ export function HistoryCard({
   onDownload,
 }: HistoryCardProps) {
   const { t } = useTranslation();
+  const currency = useAuthStore((s) => s.user?.currency || "EUR");
 
   return (
     <div className="bg-white border border-grey-50 rounded-xl p-4">
@@ -44,7 +46,7 @@ export function HistoryCard({
         <div className="flex justify-between">
           <span className="text-darkblue-50">{t("dashboard.amount")}</span>
           <span className="font-bold text-green-100">
-            {formatNumber(group.totals.amount, 2)}
+            {formatCurrency(group.totals.amount, currency)}
           </span>
         </div>
         <div className="flex justify-between">

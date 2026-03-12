@@ -63,6 +63,7 @@ export function SummaryCards() {
                 icon={Co2Icon}
                 title={t("dashboard.amount")}
                 value={formatNumber(totals.totalEmissionKgCO2e, 0)}
+                unit={t("units.kgCO2e")}
                 size="sm"
                 overlap
               />
@@ -100,6 +101,7 @@ export function SummaryCards() {
             icon={Co2Icon}
             title={t("dashboard.amount")}
             value={formatNumber(totals.totalEmissionKgCO2e, 0)}
+            unit={t("units.kgCO2e")}
             onToggle={() => setAmountDropdownOpen(!amountDropdownOpen)}
             isOpen={amountDropdownOpen}
           />

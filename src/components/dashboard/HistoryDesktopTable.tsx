@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { DetailOverlay } from "./DetailOverlay";
-import { formatNumber } from "../../lib/calculation";
+import { formatNumber, formatCurrency } from "../../lib/calculation";
+import { useAuthStore } from "../../stores/authStore";
 import { ChevronIcon, InvoiceIcon, DownloadIcon } from "../../assets/icons";
 import type { TripGroup } from "../../types";
 
@@ -22,6 +23,7 @@ export function HistoryDesktopTable({
   onCloseOverlay,
 }: HistoryDesktopTableProps) {
   const { t } = useTranslation();
+  const currency = useAuthStore((s) => s.user?.currency || "EUR");
 
   return (
     <div className="hidden lg:block">
@@ -73,7 +75,7 @@ export function HistoryDesktopTable({
             </span>
 
             <span className="text-sm font-bold text-green-100">
-              {formatNumber(group.totals.amount, 2)}
+              {formatCurrency(group.totals.amount, currency)}
             </span>
 
             <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>

@@ -75,7 +75,9 @@
   },
   "transportation": {
     "addTitle": "Add Transportation Data",
+    "addDescription": "Add your transportation data for each flight group.",
     "editTitle": "Edit Transportation Data",
+    "editDescription": "Edit your transportation data for each flight group.",
     "groupName": "Name",
     "from": "From",
     "to": "To",

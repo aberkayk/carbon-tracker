@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "../ui";
 import { DetailOverlay } from "./DetailOverlay";
 import { formatNumber } from "../../lib/calculation";
-import { DownloadIcon, DetailIcon, ChevronIcon } from "../../assets/icons";
+import { DownloadIconSvg, DetailIconSvg, ChevronIcon } from "../../assets/icons";
 import type { TripGroup } from "../../types";
 
 interface HistoryCardProps {
@@ -69,7 +69,7 @@ export function HistoryCard({
           className="text-sm font-medium"
           onClick={() => onDownload(group)}
         >
-          <img src={DownloadIcon} alt="" className="w-4 h-4 icon-pink group-hover:icon-white" />
+          <DownloadIconSvg className="w-4 h-4 text-pink-100 group-hover:text-white-100" />
           {t("common.download")}
         </Button>
         <Button
@@ -79,7 +79,7 @@ export function HistoryCard({
           className="text-sm font-medium"
           onClick={() => onDetails(group)}
         >
-          <img src={DetailIcon} alt="" className="w-4 h-4 icon-pink group-hover:icon-white" />
+          <DetailIconSvg className="w-4 h-4 text-pink-100 group-hover:text-white-100" />
           {t("common.details")}
         </Button>
       </div>

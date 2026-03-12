@@ -6,6 +6,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   showPasswordToggle?: boolean;
   hideLabel?: boolean;
+  className?: string;
 }
 
 export function Input({
@@ -41,8 +42,8 @@ export function Input({
         <input
           id={inputId}
           type={inputType}
-          className={`w-full px-4 py-3 bg-white border rounded-xl text-sm transition-all text-darkblue-100 focus-ring placeholder:text-darkblue-50 ${
-            error ? "border-red-100" : "border-white"
+          className={`w-full px-4 py-2 bg-white border-transparent rounded-xl text-sm transition-all text-darkblue-100 focus-ring placeholder:text-darkblue-50 ${
+            error ? "border-red-100" : ""
           } ${className}`}
           aria-invalid={!!error}
           aria-describedby={error ? `${inputId}-error` : undefined}

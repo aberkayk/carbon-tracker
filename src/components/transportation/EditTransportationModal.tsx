@@ -138,9 +138,10 @@ export function EditTransportationModal({
       isOpen={isOpen}
       onClose={onClose}
       title={t("transportation.editTitle")}
+      description={t("transportation.editDescription")}
       footer={
         <>
-          <Button onClick={onClose}>{t("common.cancel")}</Button>
+          <Button variant="outline-pink" onClick={onClose}>{t("common.cancel")}</Button>
           <Button onClick={handleSubmit}>{t("common.save")}</Button>
         </>
       }
@@ -160,6 +161,8 @@ export function EditTransportationModal({
           error={errors.name}
         />
 
+        <hr className="border-gray-200" />
+
         {legs.map((leg, index) => (
           <LegRow
             key={index}
@@ -168,7 +171,8 @@ export function EditTransportationModal({
             errors={errors}
             onChange={handleLegChange}
             onRemove={handleRemoveLeg}
-            showRemove={legs.length > 1}
+            onAdd={legs.length < MAX_LEGS_PER_GROUP ? handleAddLeg : undefined}
+            isFirst={index === 0}
           />
         ))}
 
@@ -177,15 +181,6 @@ export function EditTransportationModal({
             {t("transportation.maxLegsWarning")}
           </p>
         )}
-
-        <Button
-          type="button"
-          size="sm"
-          onClick={handleAddLeg}
-          disabled={legs.length >= MAX_LEGS_PER_GROUP}
-        >
-          + {t("transportation.addLeg")}
-        </Button>
       </div>
     </Modal>
   );

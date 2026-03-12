@@ -21,8 +21,23 @@
 }
 
 @layer base {
+  *,
+  ::before,
+  ::after {
+    --tw-border-opacity: 1;
+    border-color: var(--color-grey-100);
+  }
+
   html {
     scroll-behavior: smooth;
+  }
+
+  dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
   }
 
   body {
@@ -89,17 +104,4 @@
   .peer-focus-ring {
     @apply peer-focus:outline-none peer-focus:rounded-md peer-focus:ring-1 peer-focus:ring-offset-2 peer-focus:ring-darkblue-100;
   }
-
-}
-
-/* Tailwind v4 @utility — supports group-hover: and other variants */
-
-/* Converts a dark SVG icon to pink-100 (#ed1979) */
-@utility icon-pink {
-  filter: brightness(0) saturate(100%) invert(24%) sepia(73%) saturate(4084%) hue-rotate(314deg) brightness(97%) contrast(105%);
-}
-
-/* Converts a dark SVG icon to white */
-@utility icon-white {
-  filter: brightness(0) invert(1);
 }

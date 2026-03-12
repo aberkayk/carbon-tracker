@@ -75,7 +75,9 @@
   },
   "transportation": {
     "addTitle": "Ulaşım Verisi Ekle",
+    "addDescription": "Her uçuş grubu için ulaşım verilerinizi ekleyin.",
     "editTitle": "Ulaşım Verisini Düzenle",
+    "editDescription": "Her uçuş grubu için ulaşım verilerinizi düzenleyin.",
     "groupName": "İsim",
     "from": "Nereden",
     "to": "Nereye",

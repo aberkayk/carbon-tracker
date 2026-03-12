@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal, Button, Input } from "../ui";
 import { useAuthStore } from "../../stores/authStore";
@@ -19,8 +19,14 @@ export function EditAccountModal({
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (!isOpen) {
+      setPassword("");
+      setError("");
+    }
+  }, [isOpen]);
+
+  const handleVerify = () => {
     if (user && password === user.password) {
       setPassword("");
       setError("");
@@ -30,19 +36,27 @@ export function EditAccountModal({
     }
   };
 
+  const handleFormSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    handleVerify();
+  };
+
   return (
     <Modal
+      className="max-w-lg"
       isOpen={isOpen}
       onClose={onClose}
       title={t("profile.editAccount")}
       footer={
         <>
-          <Button onClick={onClose}>{t("common.cancel")}</Button>
-          <Button onClick={handleSubmit}>{t("common.edit")}</Button>
+          <Button variant="ghost" className="border" onClick={onClose}>
+            {t("common.cancel")}
+          </Button>
+          <Button onClick={handleVerify}>{t("common.edit")}</Button>
         </>
       }
     >
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleFormSubmit}>
         <p className="text-sm text-gray-600 mb-4">
           {t("profile.confirmPassword")}
         </p>

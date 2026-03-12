@@ -13,7 +13,7 @@ export function Footer() {
           {/* Left: Logo & copyright */}
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
             <img src={logo} alt="Climateware" className="h-9 w-auto" />
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-darkblue-100">
               {t("footer.copyright")}
             </span>
           </div>
@@ -24,7 +24,7 @@ export function Footer() {
               <Link
                 key={labelKey}
                 to={href}
-                className="text-sm text-darkblue-50 hover:text-darkblue-100 transition-colors"
+                className="text-sm text-darkblue-100 hover:text-grey-100 transition-colors"
               >
                 {t(labelKey)}
               </Link>

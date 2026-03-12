@@ -8,6 +8,7 @@ interface ModalProps {
   description?: string;
   children: ReactNode;
   footer?: ReactNode;
+  className?: string;
 }
 
 export function Modal({
@@ -17,6 +18,7 @@ export function Modal({
   description,
   children,
   footer,
+  className,
 }: ModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -43,7 +45,7 @@ export function Modal({
   return (
     <dialog
       ref={dialogRef}
-      className="w-[90vw] max-w-5xl rounded-xl p-0 backdrop:bg-black/50 bg-grey-50"
+      className={`w-[90vw] max-w-5xl rounded-xl p-0 backdrop:bg-black/50 bg-grey-50 ${className}`}
       onClick={(e) => {
         if (e.target === dialogRef.current) onClose();
       }}
@@ -68,7 +70,7 @@ export function Modal({
         </div>
         <div className="px-6 py-4 overflow-y-auto flex-1">{children}</div>
         {footer && (
-          <div className="flex justify-end gap-3 px-6 py-4 border-t">
+          <div className="flex justify-end gap-3 px-6 py-4 border-t border-grey-100">
             {footer}
           </div>
         )}

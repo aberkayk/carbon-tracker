@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "outline" | "outline-pink";
+  variant?: "primary" | "primary-danger" | "outline" | "outline-pink" | "ghost" | "ghost-danger";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
 }
@@ -19,10 +19,16 @@ export function Button({
 
   const variants: Record<string, string> = {
     primary: "bg-pink-100 text-white-100 hover:bg-pink-50 active:bg-pink-150",
+    "primary-danger":
+      "bg-red-100 text-white-100 hover:bg-red-100/85 active:bg-red-100/70",
     outline:
       "bg-transperant text-white-100 border border-white-100 hover:bg-white/25 active:bg-white/15",
     "outline-pink":
       "bg-transparent text-pink-100 border border-pink-100 hover:bg-pink-100 hover:text-white-100 active:bg-pink-150",
+    ghost:
+      "bg-transparent text-darkblue-100 hover:text-darkblue-50 active:text-darkblue-50",
+    "ghost-danger":
+      "bg-transparent text-darkblue-100 hover:text-red-100 active:text-red-100",
   };
 
   const sizes: Record<string, string> = {

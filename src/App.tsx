@@ -4,6 +4,7 @@ import SignUpPage from "./pages/Auth/SignUpPage";
 import { ProtectedRoute, GuestRoute, Layout } from "./components/layout";
 import "./App.css";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
+import ProfilePage from "./pages/Profile/ProfilePage";
 
 function App() {
   return (
@@ -17,6 +18,16 @@ function App() {
             <ProtectedRoute>
               <Layout>
                 <DashboardPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <ProfilePage />
               </Layout>
             </ProtectedRoute>
           }

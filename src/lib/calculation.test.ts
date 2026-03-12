@@ -3,9 +3,13 @@ import {
   calculateLegEmission,
   calculateLegAmount,
   calculateGroupTotals,
+  calculateDashboardTotals,
   calculateEquivalents,
+  formatNumber,
+  formatCurrency,
 } from "./calculation";
 import { DEFAULT_CONFIG } from "./constants";
+import type { TripGroup } from "../types";
 
 describe("Calculation Logic", () => {
   it("should calculate leg emission correctly", () => {
@@ -53,5 +57,72 @@ describe("Calculation Logic", () => {
     expect(impacts.equivalentBeefKg).toBe(
       totalEmission * factors.beefKgPerKgCo2e,
     );
+  });
+});
+
+describe("calculateDashboardTotals", () => {
+  const makeGroup = (
+    emissionKg: number,
+    distanceKm: number,
+    legCount: number,
+    amount: number,
+  ): TripGroup => ({
+    id: "g1",
+    name: "Test",
+    legs: Array.from({ length: legCount }, (_, i) => ({
+      id: `l${i}`,
+      groupId: "g1",
+      from: "A",
+      to: "B",
+      flightNo: "XX1",
+      date: "2026-01-01",
+      weightKg: 80,
+      distanceKm: distanceKm / legCount,
+      emissionKg: emissionKg / legCount,
+      amount: amount / legCount,
+    })),
+    totals: { distanceKm, weightKg: 80, emissionKg, amount },
+    createdAt: "",
+    updatedAt: "",
+  });
+
+  it("should sum totals across all groups", () => {
+    const groups = [makeGroup(10, 1000, 2, 5), makeGroup(20, 2000, 3, 10)];
+    const totals = calculateDashboardTotals(groups);
+    expect(totals.totalEmissionKgCO2e).toBe(30);
+    expect(totals.totalDistanceKm).toBe(3000);
+    expect(totals.totalLegCount).toBe(5);
+    expect(totals.totalPaymentInSelectedCurrency).toBe(15);
+  });
+
+  it("should return zeros for empty groups array", () => {
+    const totals = calculateDashboardTotals([]);
+    expect(totals.totalEmissionKgCO2e).toBe(0);
+    expect(totals.totalDistanceKm).toBe(0);
+    expect(totals.totalLegCount).toBe(0);
+    expect(totals.totalPaymentInSelectedCurrency).toBe(0);
+  });
+});
+
+describe("formatNumber", () => {
+  it("should format number with given decimals", () => {
+    expect(formatNumber(1234.567, 2)).toMatch(/1[,.]234[.,]57/);
+  });
+
+  it("should format integer with 0 decimals", () => {
+    expect(formatNumber(1234, 0)).toMatch(/1[,.]234|1234/);
+  });
+});
+
+describe("formatCurrency", () => {
+  it("should include currency symbol for EUR", () => {
+    const result = formatCurrency(100, "EUR");
+    expect(result).toMatch(/€|EUR/);
+    expect(result).toMatch(/100/);
+  });
+
+  it("should format with 2 decimal places", () => {
+    const result = formatCurrency(9.5, "USD");
+    expect(result).toMatch(/9[.,]50/);
   });
 });

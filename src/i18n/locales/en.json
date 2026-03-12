@@ -113,6 +113,13 @@
     "termsRequired": "You must accept the terms and conditions",
     "emailExists": "An account with this email already exists"
   },
+  "footer": {
+    "copyright": "© 2025",
+    "privacyPolicy": "Privacy Policy",
+    "termsAndConditions": "Terms and Conditions",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
   "units": {
     "kgCO2e": "kgCO2e",
     "km": "km",

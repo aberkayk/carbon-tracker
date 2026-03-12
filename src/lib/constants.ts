@@ -28,6 +28,13 @@ export const LANGUAGES_CONFIG = [
   { code: "tr", label: "Turkish" },
 ] as const;
 
+export const FOOTER_LINKS = [
+  { labelKey: "footer.privacyPolicy", href: "/" },
+  { labelKey: "footer.termsAndConditions", href: "/" },
+  { labelKey: "footer.faq", href: "/" },
+  { labelKey: "footer.contact", href: "/" },
+] as const;
+
 export const NAV_LINKS = [
   { name: "WEB", labelKey: "common.nav.web" },
   { name: "TABLET", labelKey: "common.nav.tablet" },

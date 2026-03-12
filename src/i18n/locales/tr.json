@@ -113,6 +113,13 @@
     "termsRequired": "Şartları ve koşulları kabul etmelisiniz",
     "emailExists": "Bu e-posta adresi ile kayıtlı bir hesap zaten var"
   },
+  "footer": {
+    "copyright": "© 2025",
+    "privacyPolicy": "Gizlilik Politikası",
+    "termsAndConditions": "Kullanım Koşulları",
+    "faq": "SSS",
+    "contact": "İletişim"
+  },
   "units": {
     "kgCO2e": "kgCO2e",
     "km": "km",

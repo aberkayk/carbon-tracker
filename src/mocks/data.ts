@@ -8,10 +8,10 @@ import { DEFAULT_CONFIG } from "../lib/constants";
 
 export const seedUser: User = {
   id: "user-seed-1",
-  firstName: "John",
-  lastName: "Doe",
-  email: "john@example.com",
-  password: "password123",
+  firstName: "Demo",
+  lastName: "User",
+  email: "demo@climateware.com",
+  password: "demo1234",
   currency: "EUR",
   language: "en",
   notificationOptIn: true,
